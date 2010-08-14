@@ -1,4 +1,3 @@
-import time
 import uuid
 
 from collections import defaultdict
@@ -6,8 +5,12 @@ from collections import defaultdict
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 
+from django_ext.http import JSONResponse
+
 import eventlet
 from eventlet import event
+
+import paramiko
 
 from tail.models import ServerTail
 
@@ -30,10 +33,13 @@ class DataCollectionView(object):
     
     def view(self, request, tail_id=None):
         tail_id = int(tail_id)
+        
         greenlet = self.greenlets.get(tail_id)
         if not greenlet:
             server_tail = get_object_or_404(ServerTail, id=tail_id)
-            self.greenlets[tail_id] = eventlet.spawn(self.data_getter, tail)
+            self.greenlets[tail_id] = eventlet.spawn(self.data_getter,
+                server_tail)
+        
         data_event = event.Event()
         self.events[tail_id].append(data_event)
         data_event.wait()
@@ -58,8 +64,24 @@ class DataCollectionView(object):
         
         return JSONResponse({
             'cursor': new_cursor,
-            'lines': lines_to_send,
+            'lines': lines,
         })
     
-    def data_getter(self, tail_id):
-        pass
+    def data_getter(self, server_tail):
+        client = paramiko.SSHClient()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        client.connect(server_tail.hostname, server_tail.port,
+            server_tail.username, server_tail.password)
+        command = 'tail -f %s' % (server_tail.path,)
+        stdin, stdout, stderr = client.exec_command(command)
+        for line in stdout:
+            line_id = str(uuid.uuid1())
+            self.data[server_tail.id].append({
+                'id': line_id,
+                'line': line,
+            })
+            events = self.events.pop(server_tail.id, [])
+            for event in events:
+                event.send(line_id)
+
+data = DataCollectionView().view
