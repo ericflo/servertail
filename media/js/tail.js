@@ -5,6 +5,7 @@ var Tail = (function() {
     var tailPath = null;
     var tailElt = null;
     var delimiter = new RegExp(' ');
+    var numCells = null;
     
     var errback = function(xhr, textStatus, errorThrown) {
         if(waitTime === 0) {
@@ -27,8 +28,17 @@ var Tail = (function() {
         for(var i = 0; i < data.lines.length; ++i) {
             var row = $('<tr></tr>');
             var splitLine = data.lines[i].split(delimiter);
-            for(var j = 0; j < splitLine.length; ++j) {
-                $('<td></td>').text(splitLine[j]).appendTo(row);
+            if(numCells === null) {
+                numCells = splitLine.length;
+            }
+            if(splitLine.length > numCells) {
+                $('<td></td>').attr('colspan', numCells - 1).text(
+                    data.lines[i]).appendTo(row);
+            }
+            else {
+                for(var j = 0; j < splitLine.length; ++j) {
+                    $('<td></td>').text(splitLine[j]).appendTo(row);
+                }
             }
             row.appendTo(tailElt);
         }
