@@ -74,8 +74,12 @@ class DataCollectionView(object):
     def data_getter(self, server_tail):
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        client.connect(server_tail.hostname, server_tail.port,
-            server_tail.username, server_tail.password)
+        kwargs = {}
+        if server_tail.username:
+            kwargs['username'] = server_tail.username
+        if server_tail.password:
+            kwargs['password'] = server_tail.password
+        client.connect(server_tail.hostname, server_tail.port, **kwargs)
         command = 'tail -q -n%s -F %s' % (self.buffer_limit, server_tail.path)
         stdin, stdout, stderr = client.exec_command(command)
         for line in stdout:
