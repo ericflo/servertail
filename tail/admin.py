@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from tail.models import Server, FilePath
+from tail.models import ServerTail
 
-admin.site.register([Server, FilePath])
+admin.site.register(ServerTail)
