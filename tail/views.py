@@ -70,8 +70,8 @@ class DataCollectionView(object):
             lines = self._get_latest_lines(tail_id, cursor)
     
         # Their cursor could just have been way too far back
-        #if not lines:
-        #    lines = self.data[tail_id]
+        if not lines:
+            lines = self.data[tail_id]
         
         new_cursor = lines[-1]['id'] if lines else None
         
