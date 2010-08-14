@@ -73,7 +73,7 @@ class DataCollectionView(object):
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(server_tail.hostname, server_tail.port,
             server_tail.username, server_tail.password)
-        command = 'tail -f %s' % (server_tail.path,)
+        command = 'tail -F %s' % (server_tail.path,)
         stdin, stdout, stderr = client.exec_command(command)
         for line in stdout:
             line_id = str(uuid.uuid1())
