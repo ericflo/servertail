@@ -27,9 +27,10 @@ def tail(request, tail_id=None):
 
 class DataCollectionView(object):
     
-    def __init__(self, idle_time=60*5, buffer_limit=100):
+    def __init__(self, idle_time=5*60, buffer_limit=100):
         self.data = defaultdict(lambda: [])
-        self.greenlets = {}
+        self.getters = {}
+        self.cancelers = {}
         self.events = defaultdict(lambda: [])
         self.idle_time = idle_time
         self.buffer_limit = buffer_limit
@@ -50,11 +51,19 @@ class DataCollectionView(object):
     def view(self, request, tail_id=None):
         tail_id = int(tail_id)
         
-        greenlet = self.greenlets.get(tail_id)
-        if not greenlet:
+        getter = self.getters.get(tail_id)
+        if getter:
+            # Cancel the canceler and start a new one for later
+            if tail_id in self.cancelers:
+                self.cancelers[tail_id].cancel()
+            self.cancelers[tail_id] = eventlet.spawn_after(self.idle_time,
+                self.stop_get_data, tail_id)
+        else:
             server_tail = get_object_or_404(ServerTail, id=tail_id)
-            self.greenlets[tail_id] = eventlet.spawn(self.data_getter,
+            self.getters[tail_id] = eventlet.spawn(self.get_data,
                 server_tail)
+            self.cancelers[tail_id] = eventlet.spawn_after(self.idle_time,
+                self.stop_get_data, tail_id)
         
         cursor = request.GET.get('cursor')
         
@@ -65,7 +74,8 @@ class DataCollectionView(object):
             self.events[tail_id].append(data_event)
             resp = data_event.wait()
             if resp['error']:
-                return JSONResponse({'error': True})
+                return JSONResponse({'error': True},
+                    request.GET.get('callback'))
             lines = self._get_latest_lines(tail_id, cursor)
     
         # Their cursor could just have been way too far back
@@ -81,7 +91,8 @@ class DataCollectionView(object):
             'lines': lines,
         }, request.GET.get('callback'))
     
-    def _data_getter(self, server_tail):
+    def _get_data(self, server_tail):
+        print 'Starting data getter for ServerTail %s' % (server_tail.id,)
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         kwargs = {}
@@ -103,12 +114,12 @@ class DataCollectionView(object):
                 server_tail.path)
         
         stdin, stdout, stderr = client.exec_command(command)
-                
+        
         for line in stdout:
             line_id = str(uuid.uuid1())
             self.data[server_tail.id].append({
                 'id': line_id,
-                'line': line,
+                'line': line.strip(),
             })
             truncated = self.data[server_tail.id][-self.buffer_limit:]
             self.data[server_tail.id] = truncated
@@ -116,14 +127,23 @@ class DataCollectionView(object):
             for event in events:
                 event.send({'error': False, 'id': line_id})
     
-    def data_getter(self, server_tail):
+    def get_data(self, server_tail):
         try:
-            return self._data_getter(server_tail)
+            return self._get_data(server_tail)
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
             events = self.events.pop(server_tail.id, [])
             for event in events:
                 event.send({'error': True})
+    
+    def stop_get_data(self, tail_id):
+        print 'Canceling data getter for ServerTail %s' % (tail_id,)
+        getter = self.getters.pop(tail_id, None)
+        if getter:
+            getter.kill()
+        self.data[tail_id] = []
+        self.cancelers.pop(tail_id, None)
+        self.events.pop(tail_id, [])
 
 data = DataCollectionView().view
