@@ -65,7 +65,8 @@ class DataCollectionView(object):
             self.events[tail_id].append(data_event)
             resp = data_event.wait()
             if resp['error']:
-                return JSONResponse({'error': True})
+                return JSONResponse({'error': True},
+                    request.GET.get('callback'))
             lines = self._get_latest_lines(tail_id, cursor)
     
         # Their cursor could just have been way too far back
