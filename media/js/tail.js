@@ -12,7 +12,7 @@ var Tail = (function() {
         else {
             waitTime *= 2;
         }
-        setTimeout(function(){ tail(path, tailElt ); }, waitTime);
+        setTimeout(function(){ tail(tailPath, tailElt ); }, waitTime);
     };
     
     var callback = function(data) {
@@ -24,10 +24,10 @@ var Tail = (function() {
         waitTime = 0;
         cursor = data.cursor;
         for(var i = 0; i < data.lines.length; ++i) {
-            $('<li></li>').text(data.lines[i]).appendTo(tailElt);
+            $("<tr></tr>").html($('<td></td>').text(data.lines[i])).appendTo(tailElt);
         }
-        while($(tailElt + ' li').length > 100) {
-            $(tailElt + ' li:first').remove();
+        while($(tailElt + ' tr').length > 100) {
+            $(tailElt + ' tr:first').remove();
         }
         /* The 9999 here is a hack */
         $(tailElt).animate({scrollTop: 9999}, 100);
