@@ -68,6 +68,7 @@ var Tail = (function() {
             if(delim) {
                 delimiter = delim;
             }
+            $(elt).css('height', $(window).height() - 100);
         },
         
         start: function() {
