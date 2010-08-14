@@ -8,6 +8,7 @@ function tail(path, elt) {
             console.log(data.lines[i].line);
             $('<li></li>').text(data.lines[i].line).appendTo(container);
         }
+        $('html, body').animate({scrollTop: $(container).height()}, 100);
         tail(path, elt);
     });
 }
