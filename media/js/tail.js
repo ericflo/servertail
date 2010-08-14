@@ -23,6 +23,13 @@ var Tail = (function() {
         if(!data) {
             return errback();
         }
+        
+        /* Detect if they're scrolled to the bottom */
+        var elem = $(tailElt);
+        var scrollHeight = elem[0].scrollHeight;
+        var atBottom = Math.abs((scrollHeight - elem.scrollTop()) -
+            elem.outerHeight()) < 20;
+        
         waitTime = 0;
         cursor = data.cursor;
         for(var i = 0; i < data.lines.length; ++i) {
@@ -42,11 +49,13 @@ var Tail = (function() {
             }
             row.appendTo(tailElt);
         }
-        while($(tailElt + ' tr').length > 100) {
-            $(tailElt + ' tr:first').remove();
+        
+        if(atBottom) {
+            while($(tailElt + ' tr').length > 100) {
+                $(tailElt + ' tr:first').remove();
+            }
+            $(tailElt).scrollTop(9999);
         }
-        /* The 9999 here is a hack */
-        $(tailElt).animate({scrollTop: 9999}, 100);
         if(!cancel) {
             Tail.tail(tailPath, tailElt);
         }
