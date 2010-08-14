@@ -5,7 +5,7 @@ function tail(path, elt) {
     $.getJSON(path, queryString, function(data) {
         cursor = data.cursor;
         for(var i = 0; i < data.lines.length; ++i) {
-            $('<li></li>').text(data.lines[i].line).appendTo(elt);
+            $('<li></li>').text(data.lines[i]).appendTo(elt);
         }
         while($(elt + ' li').length > 100) {
             $(elt + ' li:first').remove();

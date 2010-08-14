@@ -1,3 +1,4 @@
+import operator
 import uuid
 
 from collections import defaultdict
@@ -62,6 +63,8 @@ class DataCollectionView(object):
             lines = self.data[tail_id]
         
         new_cursor = lines[-1]['id'] if lines else None
+        
+        lines = map(operator.itemgetter('line'), lines)
         
         return JSONResponse({
             'cursor': new_cursor,
