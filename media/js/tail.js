@@ -10,7 +10,8 @@ function tail(path, elt) {
         while($(elt + ' li').length > 100) {
             $(elt + ' li:first').remove();
         }
-        $('html, body').animate({scrollTop: $(elt).height()}, 100);
+        /* The 9999 here is a hack */
+        $(elt).animate({scrollTop: 9999}, 100);
         tail(path, elt);
     });
 }
