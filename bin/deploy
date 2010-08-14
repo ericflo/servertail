@@ -7,5 +7,5 @@ cd /home/servertail/servertail/;\
 source /home/servertail/virtualenvs/servertail/bin/activate;\
 export FLAVOR=prod;\
 python manage.py migrate;\
-sudo svc -h /etc/service/servertail-prod;\
+sudo svc -t /etc/service/servertail-prod;\
 '
