@@ -77,7 +77,7 @@ class DataCollectionView(object):
         return JSONResponse({
             'cursor': new_cursor,
             'lines': lines,
-        })
+        }, request.GET.get('callback'))
     
     def data_getter(self, server_tail):
         client = paramiko.SSHClient()

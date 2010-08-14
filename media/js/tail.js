@@ -33,7 +33,7 @@ function tail(path, elt) {
     $.ajax({
         url: path,
         data: queryString,
-        dataType: 'json',
+        dataType: 'jsonp',
         success: callback,
         error: errback
     });
