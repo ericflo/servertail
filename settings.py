@@ -109,6 +109,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.admin',
     'django_ext',
+    'tail',
 )
 
 def override_settings(dottedpath):
