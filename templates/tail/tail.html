@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>{{ server_tail }}</p>
+    <ul id="lines"></ul>
+{% endblock %}
+
+{% block extra_body %}
+    <script type="text/javascript" charset="utf-8">
+        $(function() {
+            tail('/tail/data/{{ server_tail.id }}/', '#lines');
+        });
+    </script>
 {% endblock %}

@@ -25,11 +25,12 @@ def tail(request, tail_id=None):
 
 class DataCollectionView(object):
     
-    def __init__(self, idle_time=60*5):
+    def __init__(self, idle_time=60*5, buffer_limit=100):
         self.data = defaultdict(lambda: [])
         self.greenlets = {}
         self.events = defaultdict(lambda: [])
         self.idle_time = idle_time
+        self.buffer_limit = buffer_limit
     
     def view(self, request, tail_id=None):
         tail_id = int(tail_id)
@@ -80,6 +81,8 @@ class DataCollectionView(object):
                 'id': line_id,
                 'line': line,
             })
+            truncated = self.data[server_tail.id][-self.buffer_limit:]
+            self.data[server_tail.id] = truncated
             events = self.events.pop(server_tail.id, [])
             for event in events:
                 event.send(line_id)
