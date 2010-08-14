@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block extra_body %}
+    <a href="#" id="start-tail">Start</a>
+    <a href="#" id="stop-tail" style="display: none">Stop</a>
     <script type="text/javascript" charset="utf-8">
-        var startTail = function() {
-            tail('/tail/data/{{ server_tail.id }}/', '#lines');
-        };
+        Tail.setup('/tail/data/{{ server_tail.id }}/', '#lines');
         $(window).load(function() {
-            setTimeout(startTail, 50);
+            setTimeout(Tail.start, 50);
         });
     </script>
 {% endblock %}
