@@ -96,14 +96,14 @@ class DataCollectionView(object):
         stdin, stdout, stderr = client.exec_command(command)
         
         # On OSX the -q and -s flags are not allowed
-        for line in stderr:
-            if 'illegal option' in line:
-                command = 'tail -n%s -F %s' % (self.buffer_limit,
-                    server_tail.path)
-                stdin, stdout, stderr = client.exec_command(command)
-                break
-            else:
-                break
+        #for line in stderr:
+        #    if 'illegal option' in line:
+        #        command = 'tail -n%s -F %s' % (self.buffer_limit,
+        #            server_tail.path)
+        #        stdin, stdout, stderr = client.exec_command(command)
+        #        break
+        #    else:
+        #        break
         
         for line in stdout:
             line_id = str(uuid.uuid1())
