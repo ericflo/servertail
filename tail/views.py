@@ -34,6 +34,17 @@ class DataCollectionView(object):
         self.idle_time = idle_time
         self.buffer_limit = buffer_limit
     
+    def _get_latest_lines(self, tail_id, cursor):
+        # There's gotta be a more elegant way to write this
+        lines = []
+        seen_cursor = False
+        for line in self.data[tail_id]:
+            if seen_cursor:
+                lines.append(line)
+            elif line['id'] == cursor:
+                seen_cursor = True
+        return lines
+    
     def view(self, request, tail_id=None):
         tail_id = int(tail_id)
         
@@ -43,24 +54,18 @@ class DataCollectionView(object):
             self.greenlets[tail_id] = eventlet.spawn(self.data_getter,
                 server_tail)
         
-        data_event = event.Event()
-        self.events[tail_id].append(data_event)
-        data_event.wait()
-        
         cursor = request.GET.get('cursor')
-        if cursor:
-            # There's gotta be a more elegant way to write this
-            lines = []
-            seen_cursor = False
-            for line in self.data[tail_id]:
-                if seen_cursor:
-                    lines.append(line)
-                elif line['id'] == cursor:
-                    seen_cursor = True
-            # Their cursor could just have been way too far back
-            if not lines:
-                lines = self.data[tail_id]
-        else:
+        
+        lines = self._get_latest_lines(tail_id, cursor)
+        
+        if not lines:
+            data_event = event.Event()
+            self.events[tail_id].append(data_event)
+            data_event.wait()
+            lines = self._get_latest_lines(tail_id, cursor)
+    
+        # Their cursor could just have been way too far back
+        if not lines:
             lines = self.data[tail_id]
         
         new_cursor = lines[-1]['id'] if lines else None
@@ -84,7 +89,7 @@ class DataCollectionView(object):
         if os.path.exists(rsa_key):
             kwargs['key_filename'] = rsa_key
         client.connect(server_tail.hostname, server_tail.port, **kwargs)
-        command = 'tail -q -n%s -F %s' % (self.buffer_limit, server_tail.path)
+        command = 'tail -n%s -F %s' % (self.buffer_limit, server_tail.path)
         stdin, stdout, stderr = client.exec_command(command)
         for line in stdout:
             line_id = str(uuid.uuid1())
