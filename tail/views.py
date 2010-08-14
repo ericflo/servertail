@@ -36,6 +36,8 @@ class DataCollectionView(object):
     
     def _get_latest_lines(self, tail_id, cursor):
         # There's gotta be a more elegant way to write this
+        if not cursor:
+            return self.data[tail_id]
         lines = []
         seen_cursor = False
         for line in self.data[tail_id]:
