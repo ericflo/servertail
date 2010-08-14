@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+ssh -t servertail@servertail.com '\
+cd /home/servertail/servertail/;\
+git pull;\
+cd /home/servertail/servertail/;\
+source /home/servertail/virtualenvs/servertail/bin/activate;\
+export FLAVOR=prod;\
+python manage.py migrate;\
+sudo svc -h /etc/service/servertail-prod;\
+'

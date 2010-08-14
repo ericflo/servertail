@@ -1,0 +1,42 @@
+upstream servertail_prod {
+    server 127.0.0.1:8080 fail_timeout=0;
+}
+
+server {
+    listen 80;
+    server_name servertail.com www.servertail.com;
+    root /home/servertail/servertail;
+    access_log  /var/log/nginx/servertail-prod.access.log;
+    
+    keepalive_timeout 5;
+    
+    if ($host ~* "^www.servertail\.com") {
+        rewrite  ^(.*)$ http://servertail.com$1 permanent;
+        break;
+    }
+    location /media {
+        autoindex on;
+        index     index.html;
+        break;
+    }
+    location /robots.txt {
+        index     index.html;
+        root      /home/servertail/servertail/media;
+        break;
+    }
+    location /nginx_status {
+        stub_status on;
+        access_log off;
+        allow 127.0.0.1;
+        deny all;
+        break;
+    }
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_redirect off;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://servertail_prod;
+        proxy_read_timeout 600;
+        break;
+    }
+}
