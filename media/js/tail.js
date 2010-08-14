@@ -4,6 +4,7 @@ var Tail = (function() {
     var cancel = false;
     var tailPath = null;
     var tailElt = null;
+    var delimiter = new RegExp(' ');
     
     var errback = function(xhr, textStatus, errorThrown) {
         if(waitTime === 0) {
@@ -24,7 +25,12 @@ var Tail = (function() {
         waitTime = 0;
         cursor = data.cursor;
         for(var i = 0; i < data.lines.length; ++i) {
-            $("<tr></tr>").html($('<td></td>').text(data.lines[i])).appendTo(tailElt);
+            var row = $('<tr></tr>');
+            var splitLine = data.lines[i].split(delimiter);
+            for(var j = 0; j < splitLine.length; ++j) {
+                $('<td></td>').text(splitLine[j]).appendTo(row);
+            }
+            row.appendTo(tailElt);
         }
         while($(tailElt + ' tr').length > 100) {
             $(tailElt + ' tr:first').remove();
@@ -37,9 +43,12 @@ var Tail = (function() {
     };
     
     return {
-        setup: function(path, elt) {
+        setup: function(path, elt, delim) {
             tailPath = path;
             tailElt = elt;
+            if(delim) {
+                delimiter = delim;
+            }
         },
         
         start: function() {
