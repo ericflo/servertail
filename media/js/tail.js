@@ -24,6 +24,10 @@ var Tail = (function() {
             return errback();
         }
         
+        if(data.error) {
+            return errback();
+        }
+        
         /* Detect if they're scrolled to the bottom */
         var elem = $(tailElt);
         var scrollHeight = elem[0].scrollHeight;
