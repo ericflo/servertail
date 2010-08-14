@@ -91,17 +91,18 @@ class DataCollectionView(object):
         if os.path.exists(rsa_key):
             kwargs['key_filename'] = rsa_key
         client.connect(server_tail.hostname, server_tail.port, **kwargs)
-        command = 'tail -q -s0.08 -n%s -F %s 2>&1' % (self.buffer_limit,
-            server_tail.path)
-        stdin, stdout, stderr = client.exec_command(command)
         
+        command = 'uname -a'
+        stdin, stdout, stderr = client.exec_command(command)
+        if 'Darwin' in stdout.read():
+            command = 'tail -n%s -F %s' % (self.buffer_limit, server_tail.path)
+        else:
+            command = 'tail -q -s0.08 -n%s -F %s 2>&1' % (self.buffer_limit,
+                server_tail.path)
+        
+        stdin, stdout, stderr = client.exec_command(command)
+                
         for line in stdout:
-            if 'illegal option' in line:
-                command = 'tail -n%s -F %s' % (self.buffer_limit,
-                    server_tail.path)
-                stdin, stdout, stderr = client.exec_command(command)
-                continue
-            
             line_id = str(uuid.uuid1())
             self.data[server_tail.id].append({
                 'id': line_id,
