@@ -8,7 +8,7 @@ with open('/tmp/log.txt', 'w') as f:
     i = 1
     while True:
         dummy = ''.join([random.choice(string.digits + string.letters)
-            for i in xrange(1000)])
+            for x in xrange(1000)])
         f.write('This is a test %s - %s\n' % (i, dummy))
         f.flush()
         time.sleep(1)
