@@ -13,7 +13,7 @@ var Tail = (function() {
         else {
             waitTime *= 2;
         }
-        setTimeout(function(){ tail(tailPath, tailElt ); }, waitTime);
+        setTimeout(function(){ Tail.tail(tailPath, tailElt ); }, waitTime);
     };
     
     var callback = function(data) {
