@@ -6,3 +6,4 @@ South
 Eventlet
 http://www.amk.ca/files/python/crypto/pycrypto-2.0.1.tar.gz
 http://www.lag.net/paramiko/download/paramiko-1.7.6.tar.gz
+psycopg2
