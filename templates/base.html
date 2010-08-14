@@ -12,26 +12,20 @@
   <![endif]-->
 </head>
 <body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
-  <div id="container">
-      <header>
-          <h1 id="logo">
-              <a href="{% url index %}">Tail your server logs - ServerTail.com</a>
-          </h1>
-          <div id="nav">
-              <ul>
-                  <li><a href="{% url index %}">Home</a></li>
-              </ul>
-          </div>
-      </header>
-      <section>
-          {% block content %}{% endblock %}
-      </section>
-      <footer>
-          <ul>
-              <li><a href="{% url index %}">Home</a></li>
-          </ul>
-      </footer>
+  
+  <div id="masthead">
+    <header id="logo">
+      <a href="{% url index %}">ServerTail.com</a>
+    </header>
+    <nav>
+      <ul>
+        <li><a href="{% url index %}">Tails</a></li>
+      </ul>
+    </nav>
   </div>
+
+  {% block content %}{% endblock %}
+
   {% block extra_body %}{% endblock %}
 </body>
 </html>

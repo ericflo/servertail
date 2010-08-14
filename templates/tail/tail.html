@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <table id="lines"></table>
+  <article id="log">
+    <header>
+      <h1>development.log</h1>
+    </header>
+    <section id="output">
+      <table id="lines"></table>
+    </section>
+  </article>
 {% endblock %}
 
 {% block extra_body %}
