@@ -108,6 +108,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.admin',
+    'django_ext',
 )
 
 def override_settings(dottedpath):
