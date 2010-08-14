@@ -63,7 +63,9 @@ class DataCollectionView(object):
         if not lines:
             data_event = event.Event()
             self.events[tail_id].append(data_event)
-            data_event.wait()
+            resp = data_event.wait()
+            if resp['error']:
+                return JSONResponse({'error': True})
             lines = self._get_latest_lines(tail_id, cursor)
     
         # Their cursor could just have been way too far back
@@ -79,7 +81,7 @@ class DataCollectionView(object):
             'lines': lines,
         }, request.GET.get('callback'))
     
-    def data_getter(self, server_tail):
+    def _data_getter(self, server_tail):
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         kwargs = {}
@@ -112,6 +114,16 @@ class DataCollectionView(object):
             self.data[server_tail.id] = truncated
             events = self.events.pop(server_tail.id, [])
             for event in events:
-                event.send(line_id)
+                event.send({'error': False, 'id': line_id})
+    
+    def data_getter(self, server_tail):
+        try:
+            return self._data_getter(server_tail)
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
+            events = self.events.pop(server_tail.id, [])
+            for event in events:
+                event.send({'error': True})
 
 data = DataCollectionView().view
