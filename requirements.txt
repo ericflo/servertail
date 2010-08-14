@@ -3,3 +3,4 @@ simplejson
 django-newcache
 python-memcached
 South
+Eventlet
