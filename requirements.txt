@@ -1,0 +1,5 @@
+Django
+simplejson
+django-newcache
+python-memcached
+South
