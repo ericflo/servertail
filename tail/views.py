@@ -12,6 +12,8 @@ from django_ext.http import JSONResponse
 import eventlet
 from eventlet import event
 
+import greenlet
+
 import paramiko
 
 from tail.models import ServerTail
@@ -27,9 +29,10 @@ def tail(request, tail_id=None):
 
 class DataCollectionView(object):
     
-    def __init__(self, idle_time=60*5, buffer_limit=100):
+    def __init__(self, idle_time=5*60, buffer_limit=100):
         self.data = defaultdict(lambda: [])
         self.greenlets = {}
+        self.canceler = {}
         self.events = defaultdict(lambda: [])
         self.idle_time = idle_time
         self.buffer_limit = buffer_limit
@@ -51,10 +54,18 @@ class DataCollectionView(object):
         tail_id = int(tail_id)
         
         greenlet = self.greenlets.get(tail_id)
-        if not greenlet:
+        if greenlet:
+            # Cancel the canceler and start a new one for later
+            if tail_id in self.canceler:
+                self.canceler[tail_id].cancel()
+            self.canceler[tail_id] = eventlet.spawn_after(self.idle_time,
+                self.kill_greenlet, tail_id)
+        else:
             server_tail = get_object_or_404(ServerTail, id=tail_id)
-            self.greenlets[tail_id] = eventlet.spawn(self.data_getter,
+            self.greenlets[tail_id] = eventlet.spawn(self.get_data,
                 server_tail)
+            self.canceler[tail_id] = eventlet.spawn_after(self.idle_time,
+                self.kill_greenlet, tail_id)
         
         cursor = request.GET.get('cursor')
         
@@ -82,7 +93,8 @@ class DataCollectionView(object):
             'lines': lines,
         }, request.GET.get('callback'))
     
-    def _data_getter(self, server_tail):
+    def _get_data(self, server_tail):
+        print 'Starting greenlet for ServerTail %s' % (server_tail.id,)
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         kwargs = {}
@@ -104,7 +116,7 @@ class DataCollectionView(object):
                 server_tail.path)
         
         stdin, stdout, stderr = client.exec_command(command)
-                
+        
         for line in stdout:
             line_id = str(uuid.uuid1())
             self.data[server_tail.id].append({
@@ -117,14 +129,23 @@ class DataCollectionView(object):
             for event in events:
                 event.send({'error': False, 'id': line_id})
     
-    def data_getter(self, server_tail):
+    def get_data(self, server_tail):
         try:
-            return self._data_getter(server_tail)
+            return self._get_data(server_tail)
         except (KeyboardInterrupt, SystemExit):
             raise
         except:
             events = self.events.pop(server_tail.id, [])
             for event in events:
                 event.send({'error': True})
+    
+    def kill_greenlet(self, tail_id):
+        print 'Canceling greenlet for ServerTail %s' % (tail_id,)
+        greenlet = self.greenlets.pop(tail_id, None)
+        if greenlet:
+            greenlet.kill()
+        self.data[tail_id] = []
+        self.canceler.pop(tail_id, None)
+        self.events.pop(tail_id, [])
 
 data = DataCollectionView().view
