@@ -6,8 +6,11 @@
 
 {% block extra_body %}
     <script type="text/javascript" charset="utf-8">
-        $(function() {
+        var startTail = function() {
             tail('/tail/data/{{ server_tail.id }}/', '#lines');
+        };
+        $(window).load(function() {
+            setTimeout(startTail, 50);
         });
     </script>
 {% endblock %}
