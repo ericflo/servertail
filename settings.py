@@ -123,11 +123,9 @@ def override_settings(dottedpath):
     else:
         _thismodule = sys.modules[__name__]
         for _k in dir(_m):
-            setattr(_thismodule, _k, getattr(_m, _k))
+            if _k[:1].isupper():
+                setattr(_thismodule, _k, getattr(_m, _k))
 
 FLAVOR = os.environ.get('FLAVOR', 'localdev')
-if FLAVOR == 'snapshot':
-    override_settings('settings_overrides.localdev')
-else:
-    override_settings('settings_overrides.' + FLAVOR)
+override_settings('settings_overrides.' + FLAVOR)
 override_settings('local_settings')
