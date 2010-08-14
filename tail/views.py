@@ -1,4 +1,5 @@
 import operator
+import os
 import uuid
 
 from collections import defaultdict
@@ -79,6 +80,9 @@ class DataCollectionView(object):
             kwargs['username'] = server_tail.username
         if server_tail.password:
             kwargs['password'] = server_tail.password
+        rsa_key = '/home/servertail/.ssh/id_rsa'
+        if os.path.exists(rsa_key):
+            kwargs['key_filename'] = rsa_key
         client.connect(server_tail.hostname, server_tail.port, **kwargs)
         command = 'tail -q -n%s -F %s' % (self.buffer_limit, server_tail.path)
         stdin, stdout, stderr = client.exec_command(command)
