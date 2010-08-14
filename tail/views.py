@@ -70,8 +70,8 @@ class DataCollectionView(object):
             lines = self._get_latest_lines(tail_id, cursor)
     
         # Their cursor could just have been way too far back
-        if not lines:
-            lines = self.data[tail_id]
+        #if not lines:
+        #    lines = self.data[tail_id]
         
         new_cursor = lines[-1]['id'] if lines else None
         
@@ -109,7 +109,7 @@ class DataCollectionView(object):
             line_id = str(uuid.uuid1())
             self.data[server_tail.id].append({
                 'id': line_id,
-                'line': line,
+                'line': line.strip(),
             })
             truncated = self.data[server_tail.id][-self.buffer_limit:]
             self.data[server_tail.id] = truncated
