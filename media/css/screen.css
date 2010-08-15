@@ -17,25 +17,6 @@ a {outline:none;} /* Gets rid of Firefox's dotted borders */
 a img {border:none;} /* Gets rid of IE's blue borders */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
-/*::-webkit-scrollbar {
-    width: 13px;
-    height: 13px;
-}
-::-webkit-scrollbar-button:start:decrement,
-::-webkit-scrollbar-button:end:increment  {
-height: 0px;
-display: block;
-background-color: transparent;
-}
-::-webkit-scrollbar-track:disabled {
-    display: none;
-}
-::-webkit-scrollbar-thumb:vertical {
-height: 30px;
-background-color: #666;
--webkit-border-radius: 6px;
-}*/
-
 /**
  * General Global Stuff.
  */
@@ -51,17 +32,15 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
   #masthead #utility {float:right;height:100px;margin:0 20px 0 0;}
     #masthead #utility a {color:white;text-decoration:none;line-height:100px;}
   #masthead nav {height:30px;float:left;width:100%;}
-
-nav ul {margin:0 20px;line-height:30px;}
-nav li {margin:0 20px 0 0;float:left;}
-#quickjump #current {display:none;border:5px solid #ccc;}
-#quickjump #current:hover {color:white;}
-#quickjump #current span {display:block;border:5px solid red;}
-#quickjump ul {display:none;}
-#quickjump li {}
+  
+#breadcrumbs {margin:20px;height:44px;border:1px solid #cfcfcf;background-color:#fafafa;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;}
+  #breadcrumbs ul {margin:0 20px;display:block;}
+    #breadcrumbs li {margin:0 20px 0 0;float:left;}
+    #breadcrumbs li {background:url("../images/bg_breadcrumb_arrow.png") center right no-repeat;height:44px;padding:0 40px 0 0;line-height:44px;}
+    #breadcrumbs li:last-child {background:none;}
 
 
-article {margin:20px;-webkit-box-shadow:0 0 3px #cecece;background-color:white;}
+article {margin:0 20px;-webkit-box-shadow:0 0 3px #cecece;background-color:white;border:1px solid #cfcfcf;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;}
 article .heading {background-color:#f7f7f7;height:60px;border-bottom:1px solid #ddd;position:relative;}
 article header h1 {font-size:30px;line-height:60px;margin:0 10px;color:#939393;display:inline-block;}
 article .actions a span {display:inline-block;margin-left:-9999px;}
