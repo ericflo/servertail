@@ -14,6 +14,29 @@
     </section>
     
     <section class="content">
+      <section id="waiting-help">
+        <h2>We&rsquo;re Trying to Connect Now...</h2>
+        <p>Is this taking a long time?</p>
+        <ul>
+            {% if server_tail.password %}
+                <li>
+                    Make sure the password you entered is correct for the user
+                    <strong>{{ server_tail.username }}</strong> on your server.
+                </li>
+            {% else %}
+                <li>
+                    Make sure our public key is added to your server&rsquo;s
+                    <em>authorized_keys</em> file.
+                    To add our key to your file, you can run this command on the server:
+                    <textarea>mkdir -p ~/.ssh &amp;&amp; touch ~/.ssh/authorized_keys &amp;&amp; echo &quot;{{ public_key }}&quot; &gt;&gt; ~/.ssh/authorized_keys</textarea>
+                </li>
+            {% endif %}
+            <li>
+                Make sure that the hostname <strong>{{ server_tail.hostname }}</strong>
+                is accessible on port <strong>{{ server_tail.port }}</strong>.
+            </li>
+        </ul>
+      </section>
       <table id="lines"></table>
     </section>
   </article>
@@ -21,8 +44,6 @@
 {% endblock %}
 
 {% block extra_body %}
-
-
     <script type="text/javascript" charset="utf-8">
         Tail.setup('{% url tail_data server_tail.boxed_id %}', '#lines');
         $(window).load(function() {

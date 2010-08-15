@@ -8,6 +8,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.http import HttpResponse
 from django.template import RequestContext
+from django.core.exceptions import ImproperlyConfigured
 
 from django_ext.http import JSONResponse
 from django_ext.crypto import unbox
@@ -22,14 +23,24 @@ import paramiko
 from tail.models import ServerTail
 from tail.forms import ServerTailForm
 
+PUBLIC_KEY_FILE = os.path.expanduser('~/.ssh/id_rsa.pub')
+try:
+    with open(PUBLIC_KEY_FILE, 'r') as f:
+        PUBLIC_KEY = f.read().strip()
+except (OSError, IOError):
+    raise ImproperlyConfigured('You need an SSH public key at %s' % (
+        PUBLIC_KEY_FILE,))
+
 def tail(request, tail_id=None):
     try:
         tail_id = unbox(tail_id.encode('utf-8'))
     except (ValueError, TypeError):
         raise Http404
     server_tail = get_object_or_404(ServerTail, id=tail_id)
+    
     context = {
         'server_tail': server_tail,
+        'public_key': PUBLIC_KEY,
     }
     return render_to_response('tail/tail.html', context,
         context_instance=RequestContext(request))
@@ -140,7 +151,7 @@ class DataCollectionView(object):
         print 'Starting data getter for ServerTail %s' % (server_tail.id,)
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        kwargs = {}
+        kwargs = {'timeout': 10}
         if server_tail.username:
             kwargs['username'] = server_tail.username
         if server_tail.password:

@@ -9,12 +9,13 @@ var Tail = (function() {
     var lastWasError = false;
     
     var errback = function(xhr, textStatus, errorThrown) {
-        $(tailElt).addClass('error');
+        $('#waiting-help').show();
+        $(tailElt).hide();
         if(waitTime === 0) {
             waitTime = 60;
         }
         else {
-            waitTime *= 2;
+            waitTime *= 1.2;
         }
         setTimeout(function(){ Tail.tail(tailPath, tailElt ); }, waitTime);
     };
@@ -30,7 +31,8 @@ var Tail = (function() {
             return errback();
         }
         
-        $(tailElt).removeClass('error');
+        $('#waiting-help').hide();
+        $(tailElt).show();
         
         /* Detect if they're scrolled to the bottom */
         var elem = $(tailElt);
@@ -85,7 +87,9 @@ var Tail = (function() {
             if(delim) {
                 delimiter = delim;
             }
-            $(elt).css('height', $(window).height() - 240);
+            var height = $(window).height() - 240;
+            $(elt).css('height', height);
+            $('#waiting-help').css('height', height);
         },
         
         start: function() {
@@ -105,8 +109,9 @@ var Tail = (function() {
             var queryString = cursor ? {cursor: cursor} : {};
             $.ajax({
                 url: tailPath,
+                timeout: 10000,
                 data: queryString,
-                dataType: 'jsonp',
+                dataType: 'json',
                 success: callback,
                 error: errback
             });
