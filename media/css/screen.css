@@ -17,6 +17,25 @@ a {outline:none;} /* Gets rid of Firefox's dotted borders */
 a img {border:none;} /* Gets rid of IE's blue borders */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
+/*::-webkit-scrollbar {
+    width: 13px;
+    height: 13px;
+}
+::-webkit-scrollbar-button:start:decrement,
+::-webkit-scrollbar-button:end:increment  {
+height: 0px;
+display: block;
+background-color: transparent;
+}
+::-webkit-scrollbar-track:disabled {
+    display: none;
+}
+::-webkit-scrollbar-thumb:vertical {
+height: 30px;
+background-color: #666;
+-webkit-border-radius: 6px;
+}*/
+
 /**
  * General Global Stuff.
  */
@@ -33,7 +52,12 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
 
 #log {margin: 20px 20px;}
   #log h1 {font-size:30px;line-height:30px;margin:20px 0;color:#939393;}
-  #log #output {-webkit-box-shadow: 0 0 3px #cecece;background-color:white;padding:10px;}
+  #log #output {
+    -webkit-box-shadow: 0 0 3px #cecece;
+    background-color: white;
+    padding: 10px;
+  }
+
 /*    #output table {margin:10px;}*/
 
 /*
