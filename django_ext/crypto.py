@@ -38,6 +38,7 @@ def unbox(encoded):
     if encoded in memo_unbox:
         return memo_unbox[encoded]
     s = base64.urlsafe_b64decode(encoded)
+    encoded = base64.urlsafe_b64encode(s) # Fixes EvilPacket haxxx0r
     m = secretbox_xsalsa20poly1305_open(s[12:], s[:12] + NONCE_PAD, KEY)
     resp = int(m)
     _memo(resp, encoded)

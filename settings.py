@@ -64,6 +64,7 @@ ADMIN_MEDIA_PREFIX = '/media/admin/'
 SECRET_KEY = 'bw8+v1vshlnb!11)_&*lcq9uyw3vq)#1pa(-z_y%t))g31%d24'
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = '127.0.0.1'
@@ -82,6 +83,13 @@ TEMPLATE_LOADERS = (
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
     )),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    #'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.request',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -113,6 +121,7 @@ INSTALLED_APPS = (
     
     'django_ext',
     'tail',
+    'accounts',
 )
 
 def override_settings(dottedpath):

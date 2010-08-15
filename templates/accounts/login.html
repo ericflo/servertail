@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <ul>
+                {{ login_form.as_ul }}
+            </ul>
+            <input type="hidden" name="kind" value="login" />
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+            {% endif %}
+            <input type="submit" value="Sign In" />
+        </form>
+    </div>
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <ul>
+                {{ register_form.as_ul }}
+            </ul>
+            <input type="hidden" name="kind" value="register" />
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}" />
+            {% endif %}
+            <input type="submit" value="Sign Up" />
+        </form>
+    </div>
+{% endblock %}

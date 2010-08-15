@@ -1,0 +1,27 @@
+#!/usr/bin/env python
+
+import eventlet
+import eventlet.wsgi
+
+eventlet.monkey_patch(all=True)
+
+import os
+import sys
+
+# Not happy about this
+sys.path.insert(0, os.getcwd())
+sys.path.insert(0, os.path.dirname(os.getcwd()))
+
+os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
+
+import django.core.handlers.wsgi
+
+if __name__ == '__main__':
+    app = django.core.handlers.wsgi.WSGIHandler()
+    sock = None
+    try:
+        sock = eventlet.listen(('', 8000))
+        eventlet.wsgi.server(sock, app)
+    except (KeyboardInterrupt, SystemError):
+        if sock:
+            sock.close()

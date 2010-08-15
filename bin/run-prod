@@ -6,4 +6,4 @@ source /home/servertail/virtualenvs/servertail/bin/activate
 cd /home/servertail/servertail/
 echo "Starting servertail prod"
 export FLAVOR=prod
-exec envuidgid servertail python manage.py run_eventlet
+exec envuidgid servertail /home/servertail/servertail/bin/serve

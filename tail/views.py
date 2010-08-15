@@ -5,7 +5,7 @@ import uuid
 from collections import defaultdict
 
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.template import RequestContext
 
 from django_ext.http import JSONResponse
@@ -19,6 +19,7 @@ from eventlet import event
 import paramiko
 
 from tail.models import ServerTail
+from tail.forms import ServerTailForm
 
 def tail(request, tail_id=None):
     try:
@@ -34,9 +35,32 @@ def tail(request, tail_id=None):
 
 @login_required
 def tails(request):
+    if request.method == 'POST':
+        if 'tail_id' not in request.POST:
+            raise Http404
+        try:
+            tail_id = int(request.POST['tail_id'])
+        except (ValueError, TypeError):
+            raise Http404
+        server_tail = get_object_or_404(ServerTail, id=tail_id)
+        if server_tail.user != request.user:
+            return HttpResponseForbidden('Not allowed')
+        server_tail.delete()
+        return HttpResponseRedirect(request.path)
+    
     return render_to_response('tail/tails.html', {},
         context_instance=RequestContext(request))
 
+def create(request):
+    form = ServerTailForm(request.POST or None, user=request.user)
+    if form.is_valid():
+        st = form.save()
+        return HttpResponseRedirect(st.get_absolute_url())
+    context = {
+        'form': form,
+    }
+    return render_to_response('tail/create.html', context,
+        context_instance=RequestContext(request))
 
 class DataCollectionView(object):
     
