@@ -17,6 +17,9 @@ class ServerTail(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     date_created = models.DateTimeField(default=datetime.datetime.now)
     
+    class Meta(object):
+        ordering = ['-date_created']
+    
     @cached_property
     def boxed_id(self):
         return box(self.id)
