@@ -59,12 +59,11 @@ nav li {margin:0 20px 0 0;float:left;}
 #quickjump li {}
 
 #log {margin: 20px 20px;}
-  #log h1 {font-size:30px;line-height:30px;margin:20px 0;color:#939393;}
-  #log #output {
-    -webkit-box-shadow: 0 0 3px #cecece;
-    background-color: white;
-    padding: 10px;
-  }
+  #log h1 {font-size:30px;line-height:30px;margin:20px 0;color:#939393;display:inline-block;}
+  #log a#new-tail {width:148px;height:40px;display:inline-block;background:url("../images/btn_new_tail.png") top left no-repeat;float:right;}
+    #log a#new-tail span {display:block;margin-left:-9999px;}
+    #log #output{-webkit-box-shadow:0 0 3px #cecece;background-color:white;padding:10px;}
+
 
 /*
  * Tails
