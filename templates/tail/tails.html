@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <ul id="tails">
+        {% for tail in server_tails %}
+            <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} - {{ tail.path }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

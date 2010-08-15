@@ -1,0 +1,14 @@
+slownacl
+Matthew Dempsky
+Public domain.
+
+slownacl is a high-level reference implementation of the Python NaCl
+API.  It is intended to be readily understandable.
+
+WARNING: Because slownacl uses Python's native big number support, it
+cannot guarantee timing invariance.  Its use should therefore be
+limited to situations where timing attacks are not an issue.
+
+For more information about the CACE NaCl project, see:
+
+  http://nacl.cace-project.eu/
