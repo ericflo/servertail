@@ -35,7 +35,7 @@
       <li><a href="{% url index %}"><span>Home</span></li>        
     {% if user.is_authenticated %}
       <li><a href="{% url tail_tails %}"><span>My Tails</span></li>
-      <li id="quickjump"><a href="#">  
+      <li id="quickjump"> 
         <select>
             {% for tail in user.servertail_set.all %}
                 <option{% if server_tail == tail %} selected="selected"{% endif %} value="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</option>
