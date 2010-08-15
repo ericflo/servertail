@@ -10,6 +10,9 @@
                     <input type="submit" value="X" />
                 </form>
             </li>
+        {% empty %}
+            <li>You don&rsquo;t seem to have any tails yet, why not
+                <a href="{% url tail_create %}">create one now</a>?</li>
         {% endfor %}
     </ul>
 {% endblock %}
