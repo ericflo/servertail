@@ -164,7 +164,7 @@ class DataCollectionView(object):
             line_id = str(uuid.uuid1())
             self.data[server_tail.id].append({
                 'id': line_id,
-                'line': line.strip(),
+                'line': line.rstrip(),
             })
             truncated = self.data[server_tail.id][-self.buffer_limit:]
             self.data[server_tail.id] = truncated

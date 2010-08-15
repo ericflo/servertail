@@ -76,6 +76,7 @@ article .actions #stop-tail {background:url("../images/btn_tail_pause.png") top 
 #lines {height:300px;display:block;overflow:auto;}
 #lines td {white-space:nowrap;font:14px/26px monospace;padding: 0 6px 0 6px;}
 #lines tr:nth-child(odd) {background-color:#e9e9e9;}
+#lines tr.error {background-color:#FF9999;}
 #lines tr:hover {background-color:#d8faff;}
 
 form.delete {display: inline;}

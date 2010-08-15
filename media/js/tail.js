@@ -6,6 +6,7 @@ var Tail = (function() {
     var tailElt = null;
     var delimiter = new RegExp(' ');
     var numCells = null;
+    var lastWasError = false;
     
     var errback = function(xhr, textStatus, errorThrown) {
         $(tailElt).addClass('error');
@@ -45,16 +46,25 @@ var Tail = (function() {
             if(numCells === null) {
                 numCells = splitLine.length;
             }
-            if(splitLine.length > numCells) {
-                $('<td></td>').attr('colspan', numCells - 1).text(
-                    data.lines[i]).appendTo(row);
+            if(splitLine.length === numCells) {
+                lastWasError = false;
+                for(var j = 0; j < splitLine.length; ++j) {
+                    row.append($('<td></td>').text(splitLine[j]));
+                }
+                row.appendTo(tailElt);
             }
             else {
-                for(var j = 0; j < splitLine.length; ++j) {
-                    $('<td></td>').text(splitLine[j]).appendTo(row);
+                if(lastWasError) {
+                    var pre = $('<pre></pre>').text(data.lines[i]);
+                    $(tailElt + ' tr:last td').append(pre);
+                }
+                else {
+                    lastWasError = true;
+                    var cell = $('<td></td>').attr('colspan', numCells);
+                    cell = cell.text(data.lines[i]);
+                    row.addClass('error').append(cell).appendTo(tailElt);
                 }
             }
-            row.appendTo(tailElt);
         }
         
         if(atBottom) {
