@@ -5,7 +5,7 @@ import uuid
 from collections import defaultdict
 
 from django.shortcuts import render_to_response, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.template import RequestContext
 
 from django_ext.http import JSONResponse
@@ -19,6 +19,7 @@ from eventlet import event
 import paramiko
 
 from tail.models import ServerTail
+from tail.forms import ServerTailForm
 
 def tail(request, tail_id=None):
     try:
@@ -37,6 +38,16 @@ def tails(request):
     return render_to_response('tail/tails.html', {},
         context_instance=RequestContext(request))
 
+def create(request):
+    form = ServerTailForm(request.POST or None, user=request.user)
+    if form.is_valid():
+        st = form.save()
+        return HttpResponseRedirect(st.get_absolute_url())
+    context = {
+        'form': form,
+    }
+    return render_to_response('tail/create.html', context,
+        context_instance=RequestContext(request))
 
 class DataCollectionView(object):
     

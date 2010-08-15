@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^/?$', 'views.index', name='index'),
     
     url(r'^tails/$', 'tail.views.tails', name='tail_tails'),
+    url(r'^tail/create/$', 'tail.views.create', name='tail_create'),
     url(r'^tail/data/(?P<tail_id>.+)/$', 'tail.views.data', name='tail_data'),
     url(r'^tail/(?P<tail_id>.+)/$', 'tail.views.tail', name='tail_tail'),
     
