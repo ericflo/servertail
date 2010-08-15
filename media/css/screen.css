@@ -52,10 +52,10 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
 
 nav ul {margin:0 20px;line-height:30px;}
 nav li {margin:0 20px 0 0;float:left;}
-#quickjump #current {display:block;border:5px solid #ccc;}
+#quickjump #current {display:none;border:5px solid #ccc;}
 #quickjump #current:hover {color:white;}
 #quickjump #current span {display:block;border:5px solid red;}
-#quickjump ul {}
+#quickjump ul {display:none;}
 #quickjump li {}
 
 #log {margin: 20px 20px;}
