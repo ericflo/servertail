@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %}
+  <li>{{ server_tail.path }}</li>
+{% endblock %}
+
 {% block content %}  
   <article id="log">
     <section class="heading">

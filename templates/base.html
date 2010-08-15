@@ -19,26 +19,33 @@
     <header id="logo">
       <a href="{% url index %}">ServerTail.com</a>
     </header>
-    <nav>
+    <aside id="utility">
       <ul>
-        <li><a href="{% url index %}">Home</a></li>
-        <li><a href="{% url tail_create %}" class="tail-create">Create a new Tail</a></li>
-        {% if user.is_authenticated %}
-            <li><a href="{% url tail_tails %}">My Tails</a></li>
-            <li id="quickjump">
-                <select>
-                    {% for tail in user.servertail_set.all %}
-                        <option{% if server_tail == tail %} selected="selected"{% endif %} value="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</option>
-                    {% endfor %}
-                </select>
-            </li>
-            <li><a href="{% url logout %}?next={{ request.path }}">Logout</a></li>
-        {% else %}
-            <li><a href="{% url login %}?next={{ request.path }}">Login</a></li>
-        {% endif %}
+      {% if user.is_authenticated %}  
+        <li><a href="{% url logout %}?next={{ request.path }}">Logout</a></li>
+      {% else %}
+        <li><a href="{% url login %}?next={{ request.path }}">Login</a></li>
+      {% endif %}
       </ul>
-    </nav>
+    </aside>
   </div>
+  
+  <nav id="breadcrumbs">
+    <ul>
+      <li><a href="{% url index %}"><span>Home</span></li>        
+    {% if user.is_authenticated %}
+      <li><a href="{% url tail_tails %}"><span>My Tails</span></li>
+      <li id="quickjump"><a href="#">  
+        <select>
+            {% for tail in user.servertail_set.all %}
+                <option{% if server_tail == tail %} selected="selected"{% endif %} value="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</option>
+            {% endfor %}
+        </select></li>
+      {% block breadcrumbs %}{% endblock %}
+      
+    {% endif %}
+    </ul>
+  </nav>
 
   {% block content %}{% endblock %}
 
