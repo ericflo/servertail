@@ -23,7 +23,7 @@ from tail.models import ServerTail
 def tail(request, tail_id=None):
     try:
         tail_id = unbox(tail_id.encode('utf-8'))
-    except ValueError:
+    except (ValueError, TypeError):
         raise Http404
     server_tail = get_object_or_404(ServerTail, id=tail_id)
     context = {
@@ -64,7 +64,7 @@ class DataCollectionView(object):
     def view(self, request, tail_id=None):
         try:
             tail_id = unbox(tail_id.encode('utf-8'))
-        except ValueError:
+        except (ValueError, TypeError):
             raise Http404
         
         getter = self.getters.get(tail_id)
