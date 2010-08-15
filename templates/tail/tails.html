@@ -12,7 +12,7 @@
             </li>
         {% empty %}
             <li>You don&rsquo;t seem to have any tails yet, why not
-                <a href="{% url tail_create %}">create one now</a>?</li>
+                <a href="{% url tail_create %}" class="tail-create">create one now</a>?</li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -6,6 +6,7 @@ from collections import defaultdict
 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponse
 from django.template import RequestContext
 
 from django_ext.http import JSONResponse
@@ -55,7 +56,11 @@ def create(request):
     form = ServerTailForm(request.POST or None, user=request.user)
     if form.is_valid():
         st = form.save()
-        return HttpResponseRedirect(st.get_absolute_url())
+        if 'iframe' in request.REQUEST:
+            tmpl = '<script type="text/javascript">parent.location="%s"</script>'
+            return HttpResponse(tmpl % (st.get_absolute_url(),))
+        else:
+            return HttpResponseRedirect(st.get_absolute_url())
     context = {
         'form': form,
     }

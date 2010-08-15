@@ -5,6 +5,7 @@
   <title>{% block title %}ServerTail.com{% endblock %}</title>
   <link href="{{ MEDIA_URL }}css/screen.css" rel="stylesheet" type="text/css" media="screen" />
   <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery-1.4.2.min.js" charset="utf-8"></script>
+  <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.colorbox-min.js" charset="utf-8"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}js/global.js" charset="utf-8"></script>
   <script type="text/javascript" src="{{ MEDIA_URL }}js/tail.js" charset="utf-8"></script>
   {% block extra_head %}{% endblock %}
@@ -21,7 +22,7 @@
     <nav>
       <ul>
         <li><a href="{% url index %}">Home</a></li>
-        <li><a href="{% url tail_create %}">Create a new Tail</a></li>
+        <li><a href="{% url tail_create %}" class="tail-create">Create a new Tail</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% url tail_tails %}">My Tails</a></li>
             <li id="quickjump">
