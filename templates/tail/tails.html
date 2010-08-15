@@ -14,7 +14,7 @@
       <section class="content">
         <ul>
             {% for tail in user.servertail_set.all %}
-                <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} - {{ tail.path }}</a>
+                <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</a>
                     <form method="POST" class="delete">
                         {% csrf_token %}
                         <input type="hidden" name="tail_id" value="{{ tail.id }}" />

@@ -19,10 +19,18 @@
     <header id="logo">
       <a href="{% url index %}">ServerTail.com</a>
     </header>
+    <aside id="utility">
+      <ul>
+      {% if user.is_authenticated %}  
+        <li><a href="{% url logout %}?next={{ request.path }}">Logout</a></li>
+      {% else %}
+        <li><a href="{% url login %}?next={{ request.path }}">Login</a></li>
+      {% endif %}
+      </ul>
+    </aside>
     <nav>
       <ul>
         <li><a href="{% url index %}">Home</a></li>
-        <li><a href="{% url tail_create %}" class="tail-create">Create a new Tail</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% url tail_tails %}">My Tails</a></li>
             <li id="quickjump">
@@ -32,9 +40,6 @@
                     {% endfor %}
                 </select>
             </li>
-            <li><a href="{% url logout %}?next={{ request.path }}">Logout</a></li>
-        {% else %}
-            <li><a href="{% url login %}?next={{ request.path }}">Login</a></li>
         {% endif %}
       </ul>
     </nav>
