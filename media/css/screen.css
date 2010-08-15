@@ -58,17 +58,16 @@ nav li {margin:0 20px 0 0;float:left;}
 #quickjump ul {display:none;}
 #quickjump li {}
 
-#log {margin: 20px 20px;}
-  #log h1 {font-size:30px;line-height:30px;margin:20px 0;color:#939393;display:inline-block;}
-  #log a#new-tail {width:148px;height:40px;display:inline-block;background:url("../images/btn_new_tail.png") top left no-repeat;float:right;}
-  #log #controls {background-color:#f7f7f7;height:60px;border-bottom:1px solid #ddd;position:relative;}
-  #log #controls #start-tail,
-  #log #controls #stop-tail {position:absolute;top: 10px;left: 10px;}
-  #log #controls #new-tail {position:absolute;top: 10px;right: 10px;}
-  #log #controls a span {display:block;margin-left:-9999px;}
-    #log a#new-tail span {display:block;margin-left:-9999px;}
-    #log #output{-webkit-box-shadow:0 0 3px #cecece;background-color:white;}
-      #output #lines {margin:10px;}
+
+article {margin:20px;-webkit-box-shadow:0 0 3px #cecece;background-color:white;}
+article .heading {background-color:#f7f7f7;height:60px;border-bottom:1px solid #ddd;position:relative;}
+article header h1 {font-size:30px;line-height:60px;margin:0 10px;color:#939393;display:inline-block;}
+article .actions a span {display:block;margin-left:-9999px;}
+article .actions #new-tail {width:148px;height:40px;display:inline-block;background:url("../images/btn_new_tail.png") top left no-repeat;float:right;}
+article .actions #start-tail {background:url("../images/btn_tail_play.png") top left no-repeat;width:36px;height:36px;display:block;}
+article .actions #stop-tail {background:url("../images/btn_tail_pause.png") top left no-repeat;width:36px;height:36px;display:block;}
+  #start-tail, #stop-tail {position:absolute;top: 12px;right: 170px;}
+  #new-tail {position:absolute;top: 10px;right: 10px;}
 
 /*
  * Tails
@@ -80,18 +79,11 @@ nav li {margin:0 20px 0 0;float:left;}
 #lines tr.error {background-color:#FF9999;}
 #lines tr:hover {background-color:#d8faff;}
 
-#start-tail {background:url("../images/btn_tail_play.png") top left no-repeat;width:36px;height:36px;display:block;}
-#stop-tail {background:url("../images/btn_tail_pause.png") top left no-repeat;width:36px;height:36px;display:block;}
-
 form.delete {display: inline;}
 
 /*
  * Tails
  */
-#tails {margin: 20px 20px;}
-  #tails h1 {font-size:30px;line-height:30px;margin:20px 0;color:#939393;display:inline-block;}
-  #tails a#new-tail {width:148px;height:40px;display:inline-block;background:url("../images/btn_new_tail.png") top left no-repeat;float:right;}
-  #tails section{-webkit-box-shadow:0 0 3px #cecece;background-color:white;}
 
 /*
  * Colorbox
