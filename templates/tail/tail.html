@@ -25,7 +25,7 @@
             {% if server_tail.password %}
                 <li>
                     Make sure the password you entered is correct for the user
-                    <strong>{{ server_tail.username }}</strong> on your server.
+                    <strong>{{ server_tail.username }}@{{ server_tail.hostname }}</strong>.
                 </li>
             {% else %}
                 <li>
