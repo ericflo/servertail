@@ -4,15 +4,15 @@
   <article id="log">
     <header>
       <h1>{{ server_tail.path }}</h1>
-      <a href="#" id="new-tail"><span>New Tail</span></a>
+      <a href="{% url tail_create %}" id="new-tail"><span>New Tail</span></a>
     </header>
     <section id="output">
+      <div id="controls">
+        <a href="#" id="start-tail">Start</a>
+        <a href="#" id="stop-tail" style="display: none">Stop</a>
+      </div>
       <table id="lines"></table>
     </section>
-    <footer id="controls">
-      <a href="#" id="start-tail">Start</a>
-      <a href="#" id="stop-tail" style="display: none">Stop</a>
-    </footer>
   </article>
 {% endblock %}
 
