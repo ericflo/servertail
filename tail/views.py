@@ -26,26 +26,15 @@ def tail(request, tail_id=None):
     except ValueError:
         raise Http404
     server_tail = get_object_or_404(ServerTail, id=tail_id)
-    if request.user.is_authenticated():
-        server_tails = ServerTail.objects.filter(user=request.user).order_by(
-            '-date_created')
-    else:
-        server_tails = None
     context = {
         'server_tail': server_tail,
-        'server_tails': server_tails,
     }
     return render_to_response('tail/tail.html', context,
         context_instance=RequestContext(request))
 
 @login_required
 def tails(request):
-    server_tails = ServerTail.objects.filter(user=request.user).order_by(
-        '-date_created')
-    context = {
-        'server_tails': server_tails,
-    }
-    return render_to_response('tail/tails.html', context,
+    return render_to_response('tail/tails.html', {},
         context_instance=RequestContext(request))
 
 
