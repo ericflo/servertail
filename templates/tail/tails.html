@@ -1,18 +1,26 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <ul id="tails">
-        {% for tail in user.servertail_set.all %}
-            <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} - {{ tail.path }}</a>
-                <form method="POST" class="delete">
-                    {% csrf_token %}
-                    <input type="hidden" name="tail_id" value="{{ tail.id }}" />
-                    <input type="submit" value="X" />
-                </form>
-            </li>
-        {% empty %}
-            <li>You don&rsquo;t seem to have any tails yet, why not
-                <a href="{% url tail_create %}" class="tail-create">create one now</a>?</li>
-        {% endfor %}
-    </ul>
+{% block content %}    
+    <article id="tails">
+      <header>
+        <h1>My Tails</h1>
+        <a href="{% url tail_create %}" id="new-tail" class="tail-create"><span>New Tail</span></a>
+      </header>
+      <section>
+        <ul>
+            {% for tail in user.servertail_set.all %}
+                <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} - {{ tail.path }}</a>
+                    <form method="POST" class="delete">
+                        {% csrf_token %}
+                        <input type="hidden" name="tail_id" value="{{ tail.id }}" />
+                        <input type="submit" value="X" />
+                    </form>
+                </li>
+            {% empty %}
+                <li>You don&rsquo;t seem to have any tails yet, why not
+                    <a href="{% url tail_create %}" class="tail-create">create one now</a>?</li>
+            {% endfor %}
+        </ul>
+      </section>
+    </article>
 {% endblock %}
