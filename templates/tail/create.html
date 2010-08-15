@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "iframe_base.html" %}
 
 {% block content %}
     <form method="POST">
@@ -6,6 +6,7 @@
         <ul>
             {{ form.as_ul }}
         </ul>
+        <input type="hidden" name="iframe" value="true" />
         <input type="submit" value="Create" />
     </form>
 {% endblock %}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>{% block title %}ServerTail.com{% endblock %}</title>
+  <link href="{{ MEDIA_URL }}css/screen-iframe.css" rel="stylesheet" type="text/css" media="screen" />
+  {% block extra_head %}{% endblock %}
+  <!--[if IE]>
+  <script src="{{ MEDIA_URL }}js/html5.js"></script>
+  <![endif]-->
+</head>
+<body id="{% block body_id %}{% endblock %}" class="{% block body_class %}{% endblock %}">
+  {% block content %}{% endblock %}
+  {% block extra_body %}{% endblock %}
+</body>
+</html>

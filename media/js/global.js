@@ -7,4 +7,12 @@ $(function() {
             document.location = tailJumpListSelect.val();
         });
     }
+    
+    /* Add lightbox intercepter */
+    $('a.tail-create').colorbox({
+        transition: 'none',
+        width: 400,
+        height: 600,
+        iframe: true
+    });
 });
