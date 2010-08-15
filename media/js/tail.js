@@ -61,7 +61,7 @@ var Tail = (function() {
                 else {
                     lastWasError = true;
                     var cell = $('<td></td>').attr('colspan', numCells);
-                    cell = cell.text(data.lines[i]);
+                    cell = cell.html($('<pre></pre>').text(data.lines[i]));
                     row.addClass('error').append(cell).appendTo(tailElt);
                 }
             }
