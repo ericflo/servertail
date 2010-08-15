@@ -8,6 +8,7 @@ var Tail = (function() {
     var numCells = null;
     
     var errback = function(xhr, textStatus, errorThrown) {
+        $(tailElt).addClass('error');
         if(waitTime === 0) {
             waitTime = 60;
         }
@@ -27,6 +28,8 @@ var Tail = (function() {
         if(data.error) {
             return errback();
         }
+        
+        $(tailElt).removeClass('error');
         
         /* Detect if they're scrolled to the bottom */
         var elem = $(tailElt);
