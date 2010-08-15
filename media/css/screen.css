@@ -61,7 +61,9 @@ nav li {margin:0 20px 0 0;float:left;}
 #log {margin: 20px 20px;}
   #log h1 {font-size:30px;line-height:30px;margin:20px 0;color:#939393;display:inline-block;}
   #log a#new-tail {width:148px;height:40px;display:inline-block;background:url("../images/btn_new_tail.png") top left no-repeat;float:right;}
-  #log #controls {background-color:#f7f7f7;height:60px;border-bottom:1px solid #ddd;}
+  #log #controls {background-color:#f7f7f7;height:60px;border-bottom:1px solid #ddd;position:relative;}
+  #log #controls a {position:absolute;top: 10px;left: 10px;}
+  #log #controls a span {display:block;margin-left:-9999px;}
     #log a#new-tail span {display:block;margin-left:-9999px;}
     #log #output{-webkit-box-shadow:0 0 3px #cecece;background-color:white;}
       #output #lines {margin:10px;}
@@ -71,10 +73,13 @@ nav li {margin:0 20px 0 0;float:left;}
  * Tails
  */
 
-table#lines {height:300px;overflow:auto;display:block;}
-table#lines td {white-space:nowrap;font:14px/26px monospace;padding: 0 6px 0 6px;}
-table#lines tr:nth-child(odd) {background-color:#e9e9e9;}
-table#lines tr:hover {background-color:#d8faff;}
+#lines {height:300px;display:block;overflow:auto;}
+#lines td {white-space:nowrap;font:14px/26px monospace;padding: 0 6px 0 6px;}
+#lines tr:nth-child(odd) {background-color:#e9e9e9;}
+#lines tr:hover {background-color:#d8faff;}
+
+#start-tail {background:url("../images/btn_tail_play.png") top left no-repeat;width:36px;height:36px;display:block;}
+#stop-tail {background:url("../images/btn_tail_pause.png") top left no-repeat;width:36px;height:36px;display:block;}
 
 form.delete {display: inline;}
 

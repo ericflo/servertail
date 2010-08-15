@@ -4,14 +4,17 @@
   <article id="log">
     <header>
       <h1>{{ server_tail.path }}</h1>
-      <a href="{% url tail_create %}" id="new-tail"><span>New Tail</span></a>
+      <a href="{% url tail_create %}" id="new-tail" class="tail-create"><span>New Tail</span></a>
     </header>
     <section id="output">
       <div id="controls">
-        <a href="#" id="start-tail">Start</a>
-        <a href="#" id="stop-tail" style="display: none">Stop</a>
+        <a href="#" id="start-tail"><span>Start</span></a>
+        <a href="#" id="stop-tail" style="display: none"><span>Stop</span></a>
       </div>
-      <table id="lines"></table>
+      <div id="lines">
+        <table></table>        
+      </div>
+
     </section>
   </article>
 {% endblock %}
