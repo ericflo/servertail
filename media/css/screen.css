@@ -66,6 +66,8 @@ form.delete {display: inline;}
 #waiting-help h2 {font-size:30px;margin:0 0 40px 0;background:url("../images/bg_waiting.png") 0 50% no-repeat;height:59px;line-height:59px;padding:0 0 0 70px;margin-left:-70px;}
 #waiting-help p {color:#717171;font-family: Georgia;font-style:italic;font-size: 18px;background:url("../images/bg_notice.png") 0 50% no-repeat;height:29px;line-height:29px;padding:0 0 0 45px;margin-left:-45px;}
 #waiting-help ul {color:#717171;margin:10px 0;}
+#waiting-help li {margin:0 0 20px 0;}
+#waiting-help li textarea {margin:10px 0 0 0;width:100%;padding:20px;height:110px;border:1px solid #ccc;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;font-family:monospace;}
 
 /*
  * Colorbox

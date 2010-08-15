@@ -29,14 +29,14 @@
                 </li>
             {% else %}
                 <li>
-                    Make sure our public key is added to your server&rsquo;s
+                    If you haven't already, Make sure our public key is added to your server&rsquo;s
                     <em>authorized_keys</em> file.
                     To add our key to your file, you can run this command on the server:
                     <textarea>mkdir -p ~/.ssh &amp;&amp; touch ~/.ssh/authorized_keys &amp;&amp; echo &quot;{{ public_key }}&quot; &gt;&gt; ~/.ssh/authorized_keys</textarea>
                 </li>
             {% endif %}
             <li>
-                Make sure that the hostname <strong>{{ server_tail.hostname }}</strong>
+                Also, make sure that the hostname <strong>{{ server_tail.hostname }}</strong>
                 is accessible on port <strong>{{ server_tail.port }}</strong>.
             </li>
         </ul>
