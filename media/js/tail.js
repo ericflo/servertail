@@ -61,7 +61,7 @@ var Tail = (function() {
                 else {
                     lastWasError = true;
                     var cell = $('<td></td>').attr('colspan', numCells);
-                    cell = cell.text(data.lines[i]);
+                    cell = cell.html($('<pre></pre>').text(data.lines[i]));
                     row.addClass('error').append(cell).appendTo(tailElt);
                 }
             }
@@ -85,7 +85,7 @@ var Tail = (function() {
             if(delim) {
                 delimiter = delim;
             }
-            $(elt).css('height', $(window).height() - 100);
+            $(elt).css('height', $(window).height() - 240);
         },
         
         start: function() {
