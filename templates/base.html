@@ -22,6 +22,13 @@
         <li><a href="{% url index %}">Home</a></li>
         {% if user.is_authenticated %}
             <li><a href="{% url tail_tails %}">My Tails</a></li>
+            <li id="quickjump">
+                <select>
+                    {% for tail in user.servertail_set.all %}
+                        <option{% if server_tail == tail %} selected="selected"{% endif %}>{{ tail.hostname }} &mdash; {{ tail.path }}</option>
+                    {% endfor %}
+                </select>
+            </li>
         {% else %}
             <li><a href="{% url auth_login %}">Login</a></li>
         {% endif %}
