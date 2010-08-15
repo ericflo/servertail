@@ -1,3 +1,6 @@
+# TODO: Make this not a management command. I think monkeypatching is happening
+#       too late since some Django machinery is already loaded.
+
 import eventlet
 import eventlet.wsgi
 
