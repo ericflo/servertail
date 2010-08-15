@@ -19,8 +19,12 @@
     </header>
     <nav>
       <ul>
-        <li><a href="{% url index %}">Tails</a></li>
-        {% block breadcrumb %}{% endblock %}
+        <li><a href="{% url index %}">Home</a></li>
+        {% if user.is_authenticated %}
+            <li><a href="{% url tail_tails %}">My Tails</a></li>
+        {% else %}
+            <li><a href="{% url auth_login %}">Login</a></li>
+        {% endif %}
       </ul>
     </nav>
   </div>
