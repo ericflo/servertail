@@ -5,9 +5,13 @@ import uuid
 from collections import defaultdict
 
 from django.shortcuts import render_to_response, get_object_or_404
+from django.http import Http404
 from django.template import RequestContext
 
 from django_ext.http import JSONResponse
+from django_ext.crypto import unbox
+
+from django.contrib.auth.decorators import login_required
 
 import eventlet
 from eventlet import event
@@ -17,11 +21,25 @@ import paramiko
 from tail.models import ServerTail
 
 def tail(request, tail_id=None):
+    try:
+        tail_id = unbox(tail_id.encode('utf-8'))
+    except ValueError:
+        raise Http404
     server_tail = get_object_or_404(ServerTail, id=tail_id)
     context = {
         'server_tail': server_tail,
     }
     return render_to_response('tail/tail.html', context,
+        context_instance=RequestContext(request))
+
+@login_required
+def tails(request):
+    server_tails = ServerTail.objects.filter(user=request.user).order_by(
+        '-date_created')
+    context = {
+        'server_tails': server_tails,
+    }
+    return render_to_response('tail/tails.html', context,
         context_instance=RequestContext(request))
 
 
@@ -49,7 +67,10 @@ class DataCollectionView(object):
         return lines
     
     def view(self, request, tail_id=None):
-        tail_id = int(tail_id)
+        try:
+            tail_id = unbox(tail_id.encode('utf-8'))
+        except ValueError:
+            raise Http404
         
         getter = self.getters.get(tail_id)
         if getter:
