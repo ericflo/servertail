@@ -1,22 +1,23 @@
 {% extends "base.html" %}
 
-{% block content %}
+{% block content %}  
   <article id="log">
-    <header>
-      <h1>{{ server_tail.path }}</h1>
-    </header>
-    <section id="output">
-      <div id="controls">
+    <section class="heading">
+      <header>
+        <h1>{{ server_tail.path }}</h1>
+      </header>
+      <aside class="actions">
         <a href="#" id="start-tail"><span>Start</span></a>
         <a href="#" id="stop-tail" style="display: none"><span>Stop</span></a>
         <a href="{% url tail_create %}" id="new-tail" class="tail-create"><span>New Tail</span></a>
-      </div>
-      <div id="lines">
-        <table></table>        
-      </div>
-
+      </aside>
+    </section>
+    
+    <section id="lines" class="content">
+      <table></table>
     </section>
   </article>
+  
 {% endblock %}
 
 {% block extra_body %}

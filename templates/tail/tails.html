@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 
-{% block content %}    
-    <article id="tails">
-      <header>
-        <h1>My Tails</h1>
-        <a href="{% url tail_create %}" id="new-tail" class="tail-create"><span>New Tail</span></a>
-      </header>
-      <section>
+{% block content %}        
+    <article id="tails" class="">
+      <section class="heading">
+        <header>
+          <h1>My Tails</h1>
+        </header>
+        <aside class="actions">
+          <a href="{% url tail_create %}" id="new-tail" class="tail-create"><span>New Tail</span></a>
+        </aside>
+      </section>
+
+      <section class="content">
         <ul>
             {% for tail in user.servertail_set.all %}
                 <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} - {{ tail.path }}</a>
