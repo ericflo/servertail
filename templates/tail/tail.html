@@ -1,5 +1,16 @@
 {% extends "content_base.html" %}
 
+{% block breadcrumb %}
+  <li id="quickjump">
+    <a href="#" id="current"><span>servertail.com &mdash; development.log</span></a>
+    <ul>      
+      <li><a href="#">servertail.com &mdash; development.log</a></li>
+      <li><a href="#">servertail.com &mdash; production.log</a></li>
+      <li><a href="#">servertail.com &mdash; test.log</a></li>
+    </ul>
+    </li>
+{% endblock %}
+
 {% block content %}
   <article id="log">
     <header>

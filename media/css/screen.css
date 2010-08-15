@@ -50,6 +50,14 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
   #masthead #logo h1 a {line-height:100px;display:inline-block;}
   #masthead nav {height:30px;float:left;}
 
+nav ul {margin:0 20px;line-height:30px;}
+nav li {margin:0 20px 0 0;float:left;}
+#quickjump #current {display:block;border:5px solid #ccc;}
+#quickjump #current:hover {color:white;}
+#quickjump #current span {display:block;border:5px solid red;}
+#quickjump ul {}
+#quickjump li {}
+
 #log {margin: 20px 20px;}
   #log h1 {font-size:30px;line-height:30px;margin:20px 0;color:#939393;}
   #log #output {
@@ -57,8 +65,6 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
     background-color: white;
     padding: 10px;
   }
-
-/*    #output table {margin:10px;}*/
 
 /*
  * Tails
