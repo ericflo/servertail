@@ -25,8 +25,9 @@ body {background-color: #eee;margin: 0;padding: 0;font-family: "Lucida Grande", 
  */
 
 form#new-tail {margin:0 20px;}
+h1 {font-size:20px;margin: 20px 20px 30px 20px;}
 form#new-tail li {width:100%;float:left;margin:0 0 10px 0;} 
-form#new-tail label {float:left;display:block;width:100%;font-weight:bold;font-size:14px;margin:0 0 5px 0;}
+form#new-tail label {float:left;display:block;width:100%;font-weight:bold;font-size:14px;margin:0 0 5px 0;color:#666;}
 form#new-tail input[type="submit"] {
   background-color: #2daebf;
   display: inline-block;
