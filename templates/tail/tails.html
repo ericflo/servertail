@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}My Tails &mdash; {{ block.super }}{% endblock %}
+{% block title %}My Tails &ndash; {{ block.super }}{% endblock %}
 
 {% block content %}        
     <article id="tails" class="group">
@@ -16,7 +16,7 @@
       <section class="content group">
             {% for tail in user.servertail_set.all %}
               <ul class="group">
-                <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</a>
+                <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} &ndash; {{ tail.path }}</a>
                     <form method="POST" class="delete">
                         {% csrf_token %}
                         <input type="hidden" name="tail_id" value="{{ tail.id }}" />
