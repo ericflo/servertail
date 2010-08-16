@@ -95,7 +95,7 @@ form.delete {display: inline;}
 /*
  * Login/Register
  */
-#login-register {margin:0 20px;}
+#login-register {margin:0 20px 100px 20px;}
 #login, #register {width:49%;margin:0;}
 #login {float:left;}
 #register {float:right;}
@@ -197,7 +197,7 @@ form.delete {display: inline;}
  * Footer
  */
 
-#credits {width:100%;background-color:#2e2e2e;color:white;padding:20px 0;}
+#credits {width:100%;background-color:#2e2e2e;color:white;padding:20px 0;float:left;margin:100px 0 0 0;}
   #credits a {color:#eee;}
   #credits-content {width:940px;margin:0 auto;height:100px;}
     #credits #contributors {width:220px;float:left;}
