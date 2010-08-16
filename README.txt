@@ -13,6 +13,7 @@ INSTALLATION AND RUNNING
 ========================
 
 $ git clone git://github.com/ericflo/servertail.git
+$ sudo easy_install -U virtualenv
 $ virtualenv stenv
 $ source stenv/bin/activate
 $ easy_install -U pip
