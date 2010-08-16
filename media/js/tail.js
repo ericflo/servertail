@@ -23,8 +23,10 @@ var Tail = (function() {
         if(cancel) {
             return;
         }
-        $('#waiting-help').show();
-        $(tailElt).hide();
+        if(textStatus != 'timeout') {
+            $('#waiting-help').show();
+            $(tailElt).hide();
+        }
         if(waitTime === 0) {
             waitTime = 60;
         }
