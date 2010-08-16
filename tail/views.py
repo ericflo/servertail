@@ -101,16 +101,17 @@ class DataCollectionView(object):
         getter = self.getters.get(tail_id)
         if getter:
             # Cancel the canceler and start a new one for later
-            if tail_id in self.cancelers:
-                self.cancelers[tail_id].cancel()
-            self.cancelers[tail_id] = eventlet.spawn_after(self.idle_time,
-                self.stop_get_data, tail_id)
+            #if tail_id in self.cancelers:
+            #    self.cancelers[tail_id].cancel()
+            #self.cancelers[tail_id] = eventlet.spawn_after(self.idle_time,
+            #    self.stop_get_data, tail_id)
+            pass
         else:
             server_tail = get_object_or_404(ServerTail, id=tail_id)
             self.getters[tail_id] = eventlet.spawn(self.get_data,
                 server_tail)
-            self.cancelers[tail_id] = eventlet.spawn_after(self.idle_time,
-                self.stop_get_data, tail_id)
+            #self.cancelers[tail_id] = eventlet.spawn_after(self.idle_time,
+            #    self.stop_get_data, tail_id)
         
         cursor = request.GET.get('cursor')
         
