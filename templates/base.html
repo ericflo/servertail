@@ -32,9 +32,9 @@
   
   <nav id="breadcrumbs">
     <ul>
-      <li><a href="{% url index %}"><span>Home</span></li>        
+      <li><a href="{% url index %}"><span>Home</span></a></li>        
     {% if user.is_authenticated %}
-      <li><a href="{% url tail_tails %}"><span>My Tails</span></li>
+      <li><a href="{% url tail_tails %}"><span>My Tails</span></a></li>
       <li id="quickjump"> 
         <select>
             {% for tail in user.servertail_set.all %}
