@@ -13,9 +13,9 @@
         <span id="call-to-actions">
         <a href="{% url tail_create %}" class="tail-create" id="cta"><span>Try it for free!</span></a>
         {% if user.is_authenticated %}
-            <a href="{% url login %}" id="cta-reg"><span>Register for More!</span></a>
+                <a href="{% url tail_tails %}" id="cta-my-saved-tails"><span>My Saved Tails</span></a>
         {% else %}
-            <a href="{% url tail_tails %}" id="cta-saved-tails"><span>My Saved Tails</span></a>
+                <a href="{% url login %}" id="cta-reg"><span>Register for More!</span></a>
         {% endif %}
         </span>
         </div>
