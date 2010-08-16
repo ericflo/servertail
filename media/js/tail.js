@@ -8,6 +8,7 @@ var Tail = (function() {
     var lastWasError = false;
     var inARow = 0;
     var currentRequest = null;
+    var shouldAddShrinkRows = true;
     
     var smartSplit = function(str) {
         var splitStr = str.match(/\S+|"[^"]+"/g);
@@ -106,7 +107,9 @@ var Tail = (function() {
             }
             if(numCells === null) {
                 numCells = splitLine.length;
-                addShrinkRows(splitLine.length);
+                if(shouldAddShrinkRows) {
+                    addShrinkRows(splitLine.length);
+                }
             }
             if(splitLine.length === numCells) {
                 lastWasError = false;
@@ -152,9 +155,10 @@ var Tail = (function() {
     };
     
     return {
-        setup: function(path, elt) {
+        setup: function(path, elt, sasr) {
             tailPath = path;
             tailElt = elt;
+            shouldAddShrinkRows = (sasr === undefined ? true : sasr);
             var height = $(window).height() - 275;
             $(elt).css('height', height);
             $('#waiting-help').css('height', height);
