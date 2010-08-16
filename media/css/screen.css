@@ -27,10 +27,10 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
  */
  
 #masthead {height:50px;}
-  #masthead #logo {height:70px;width:300px;display:block;float:left;}
-  #masthead #logo h1 a {line-height:70px;display:inline-block;}
-  #masthead #utility {float:right;height:70px;margin:0 20px 0 0;}
-    #masthead #utility a {color:white;text-decoration:none;line-height:70px;}
+  #masthead #logo {height:50px;width:300px;display:block;float:left;}
+  #masthead #logo h1 a {line-height:50px;display:inline-block;}
+  #masthead #utility {float:right;height:50px;margin:0 20px 0 0;}
+    #masthead #utility a {color:white;text-decoration:none;line-height:50px;}
   
 #breadcrumbs {margin:20px;height:44px;border:1px solid #cfcfcf;-webkit-box-shadow:0 0 3px #cecece;background-color:#fafafa;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;overflow:hidden;}
   #breadcrumbs a { text-decoration:none;color:#666;}
@@ -73,7 +73,6 @@ article .actions #stop-tail {background:url("../images/btn_tail_pause.png") top 
 /*
  * Tail
  */
-
 #shrink-container {overflow: hidden;}
 #shrink td {font:14px/26px monospace;padding: 0 6px 0 6px;overflow: hidden;}
 #shrink a {text-decoration: none; color: #ddd;}
@@ -92,6 +91,20 @@ form.delete {display: inline;}
 #waiting-help ul {color:#717171;margin:10px 0;}
 #waiting-help li {margin:0 0 20px 0;}
 #waiting-help li textarea {margin:10px 0 0 0;width:100%;padding:20px;height:110px;border:1px solid #ccc;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;font-family:monospace;}
+
+/*
+ * Login/Register
+ */
+
+#login-register {margin:0 20px;}
+#login, #register {width:49%;margin:0;}
+#login {float:left;}
+#register {float:right;}
+#login-register form {margin:20px;float:left;}
+#login-register form li {width:100%;float:left;margin:0 0 10px 0;} 
+#login-register form label {float:left;display:block;width:100%;font-weight:bold;font-size:14px;margin:0 0 5px 0;color:#666;}
+#login-register form input[type="submit"] {background-color:#2daebf;display:inline-block;padding:5px 10px 6px;color:#fff;text-decoration:none;font-weight:bold;line-height:1;-moz-border-radius:5px;-webkit-border-radius:5px;-moz-box-shadow:0 1px 3px #999;-webkit-box-shadow:0 1px 3px #999;text-shadow:0 -1px 1px #222;border-bottom:1px solid #222;position:relative;cursor:pointer;}
+#login-register form input {float:left;width:100%;font-size:16px;line-height:30px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;border:1px solid #ccc;}
 
 /*
  * Colorbox

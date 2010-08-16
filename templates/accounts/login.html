@@ -1,30 +1,55 @@
 {% extends "base.html" %}
 
+{% block breadcrumbs %}
+  <li>Start getting some tail!</li>
+{% endblock %}
+
 {% block content %}
-    <div>
-        <form method="POST">
-            {% csrf_token %}
-            <ul>
-                {{ login_form.as_ul }}
-            </ul>
-            <input type="hidden" name="kind" value="login" />
-            {% if next %}
-                <input type="hidden" name="next" value="{{ next }}" />
-            {% endif %}
-            <input type="submit" value="Sign In" />
-        </form>
-    </div>
-    <div>
-        <form method="POST">
-            {% csrf_token %}
-            <ul>
-                {{ register_form.as_ul }}
-            </ul>
-            <input type="hidden" name="kind" value="register" />
-            {% if next %}
-                <input type="hidden" name="next" value="{{ next }}" />
-            {% endif %}
-            <input type="submit" value="Sign Up" />
-        </form>
-    </div>
+
+    <div id="login-register">
+        <article id="login">
+          <section class="heading">
+            <header>
+              <h1>Login</h1>
+            </header>
+          </section>
+
+          <section class="content">
+              <form method="POST">
+                  {% csrf_token %}
+                  <ul>
+                      {{ login_form.as_ul }}
+                  </ul>
+                  <input type="hidden" name="kind" value="login" />
+                  {% if next %}
+                      <input type="hidden" name="next" value="{{ next }}" />
+                  {% endif %}
+                  <input type="submit" value="Sign In" />
+              </form>
+          </section>
+        </article>
+
+        <article id="register">
+          <section class="heading">
+            <header>
+              <h1>Register</h1>
+            </header>
+          </section>
+
+          <section class="content">
+              <form method="POST">
+                  {% csrf_token %}
+                  <ul>
+                      {{ register_form.as_ul }}
+                  </ul>
+                  <input type="hidden" name="kind" value="register" />
+                  {% if next %}
+                      <input type="hidden" name="next" value="{{ next }}" />
+                  {% endif %}
+                  <input type="submit" value="Sign Up" />
+              </form>
+          </section>
+        </article>
+    </div>  
+    
 {% endblock %}
