@@ -55,7 +55,7 @@ var Tail = (function() {
             })();
         }
         shrinkTable.append(row);
-        $(tailElt).before($('<div></div>').append(shrinkTable));
+        $(tailElt).before($('<div id="shrink-container"></div>').append(shrinkTable));
         $(tailElt).scroll(function(e) {
             shrinkTable.css('margin-left', '-' + $(tailElt).scrollLeft() + 'px');
         });
@@ -124,7 +124,7 @@ var Tail = (function() {
             var width = $(latest[i]).width();
             $('.shrink' + i).css('width', width).css('max-width', width);
         }
-        $('#shrink').parent().css('width', $(tailElt + ' tr:last').width());
+        $('#shrink').css('width', $(tailElt + ' tr:last').width());
         
         if(!cancel) {
             Tail.tail(tailPath, tailElt);
@@ -138,7 +138,7 @@ var Tail = (function() {
             if(delim) {
                 delimiter = delim;
             }
-            var height = $(window).height() - 240;
+            var height = $(window).height() - 300;
             $(elt).css('height', height);
             $('#waiting-help').css('height', height);
         },

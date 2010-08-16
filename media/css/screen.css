@@ -74,6 +74,7 @@ article .actions #stop-tail {background:url("../images/btn_tail_pause.png") top 
  * Tail
  */
 
+#shrink-container {overflow: hidden;}
 #shrink td {font:14px/26px monospace;padding: 0 6px 0 6px;overflow: hidden;}
 #shrink a {text-decoration: none; color: #ddd;}
 
