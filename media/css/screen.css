@@ -28,7 +28,8 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
  
 #masthead {height:50px;}
   #masthead #logo {height:50px;width:300px;display:block;float:left;}
-  #masthead #logo h1 a {line-height:50px;display:inline-block;}
+  #masthead #logo a {display:block;background:url("../images/servertail_logo.png") center left no-repeat;width:188px;height:50px;margin: 2px 0 0 20px;}
+  #masthead #logo a span {display:inline-block;margin-left:-9999px;}
   #masthead #utility {float:right;height:50px;margin:0 20px 0 0;}
     #masthead #utility a {color:white;text-decoration:none;line-height:50px;}
   
