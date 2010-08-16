@@ -34,7 +34,7 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
     #masthead #utility a {color:white;text-decoration:none;line-height:50px;}
 
 #home #breadcrumbs {display:none;}  
-#breadcrumbs {margin:20px;height:44px;border:1px solid #cfcfcf;-webkit-box-shadow:0 0 3px #cecece;background-color:#fafafa;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;overflow:hidden;}
+#breadcrumbs {margin:20px;height:44px;border:1px solid #cfcfcf;-webkit-box-shadow:0 0 3px #cecece;background-color:#f7f7f7;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;overflow:hidden;}
   #breadcrumbs a { text-decoration:none;color:#666;}
   #breadcrumbs ul {margin:0 20px;display:block;overflow:auto;}
     #breadcrumbs li {margin:0 20px 0 0;float:left;}
@@ -201,7 +201,7 @@ form.delete {display: inline;}
 
 #credits {width:100%;background-color:#2e2e2e;color:white;padding:20px 0;float:left;margin:100px 0 0 0;}
   #credits a {color:#eee;}
-  #credits-content {width:940px;margin:0 auto;height:100px;}
+  #credits-content {margin:0 20px;height:100px;}
     #credits #contributors {width:220px;float:left;}
     #credits #about {width:200px;float:right;}
       #credits #about .servertail {background:url("../images/servertail_logo_sm.png") top left no-repeat;width:107px;height:24px;display:block;}
