@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class RegistrationForm(forms.Form):
     username = forms.RegexField(regex=r'^\w+$', max_length=30)
-    password1 = forms.CharField(widget=forms.PasswordInput(render_value=False)
+    password1 = forms.CharField(widget=forms.PasswordInput(render_value=False),
         label='Password')
     password2 = forms.CharField(widget=forms.PasswordInput(render_value=False),
         label='Password (again)')
