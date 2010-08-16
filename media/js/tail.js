@@ -9,13 +9,11 @@ var Tail = (function() {
     var currentRequest = null;
     
     var smartSplit = function(str) {
-        console.log(str);
         var splitStr = str.match(/\S+|"[^"]+"/g);
         var i = splitStr.length;
         while(i--){
             splitStr[i] = splitStr[i].replace(/"/g,"");
         }
-        console.log(splitStr);
         return splitStr;
     };
     
