@@ -4,10 +4,20 @@ var Tail = (function() {
     var cancel = false;
     var tailPath = null;
     var tailElt = null;
-    var delimiter = new RegExp(' ');
     var numCells = null;
     var lastWasError = false;
     var currentRequest = null;
+    
+    var smartSplit = function(str) {
+        console.log(str);
+        var splitStr = str.match(/\S+|"[^"]+"/g);
+        var i = splitStr.length;
+        while(i--){
+            splitStr[i] = splitStr[i].replace(/"/g,"");
+        }
+        console.log(splitStr);
+        return splitStr;
+    };
     
     var errback = function(xhr, textStatus, errorThrown) {
         if(cancel) {
@@ -85,7 +95,7 @@ var Tail = (function() {
         cursor = data.cursor;
         for(var i = 0; i < data.lines.length; ++i) {
             var row = $('<tr></tr>');
-            var splitLine = data.lines[i].split(delimiter);
+            var splitLine = smartSplit(data.lines[i]);
             if(numCells === null) {
                 numCells = splitLine.length;
                 addShrinkRows(splitLine.length);
@@ -132,12 +142,9 @@ var Tail = (function() {
     };
     
     return {
-        setup: function(path, elt, delim) {
+        setup: function(path, elt) {
             tailPath = path;
             tailElt = elt;
-            if(delim) {
-                delimiter = delim;
-            }
             var height = $(window).height() - 275;
             $(elt).css('height', height);
             $('#waiting-help').css('height', height);
