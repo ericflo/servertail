@@ -39,7 +39,6 @@ def tail(request, tail_id=None):
     except (ValueError, TypeError):
         raise Http404
     server_tail = get_object_or_404(ServerTail, id=tail_id)
-    
     context = {
         'server_tail': server_tail,
         'public_key': PUBLIC_KEY,
