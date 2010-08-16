@@ -29,3 +29,11 @@ class ServerTail(models.Model):
     
     def get_absolute_url(self):
         return reverse('tail_tail', args=[self.boxed_id])
+
+
+class FrontPage(models.Model):
+    server_tail = models.ForeignKey(ServerTail)
+    date = models.DateTimeField(default=datetime.datetime.now)
+    
+    def __unicode__(self):
+        return u'%s was featured on %s' % (self.server_tail, self.date)
