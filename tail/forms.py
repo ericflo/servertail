@@ -9,6 +9,7 @@ class ServerTailForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(render_value=False),
         required=False,
+        label='Password (optional)',
     )
     path = forms.CharField(max_length=255)
     
