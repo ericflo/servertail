@@ -18,3 +18,30 @@ a img {border:none;} /* Gets rid of IE's blue borders */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
 body {background-color: #eee;margin: 0;padding: 0;font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Helvetica, Arial, sans-serif;font-size: 75%;}
+
+
+/*
+ * Add New Tail
+ */
+
+form#new-tail {margin:0 20px;}
+form#new-tail li {width:100%;float:left;margin:0 0 10px 0;} 
+form#new-tail label {float:left;display:block;width:100%;font-weight:bold;font-size:14px;margin:0 0 5px 0;}
+form#new-tail input[type="submit"] {
+  background-color: #2daebf;
+  display: inline-block;
+  padding: 5px 10px 6px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  line-height: 1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-box-shadow: 0 1px 3px #999;
+  -webkit-box-shadow: 0 1px 3px #999;
+  text-shadow: 0 -1px 1px #222;
+  border-bottom: 1px solid #222;
+  position: relative;
+  cursor: pointer;
+}
+form#new-tail input {float:left;width:100%;font-size:16px;line-height:30px;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;border:1px solid #ccc;}

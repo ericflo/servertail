@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
 {% block content %}        
-    <article id="tails" class="">
+    <article id="tails" class="group">
       <section class="heading">
         <header>
           <h1>My Tails</h1>
         </header>
-        <aside class="actions">
+        <aside class="actions group">
           <a href="{% url tail_create %}" id="new-tail" class="tail-create"><span>New Tail</span></a>
         </aside>
       </section>
 
-      <section class="content">
-        <ul>
+      <section class="content group">
             {% for tail in user.servertail_set.all %}
+              <ul class="group">
                 <li><a href="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</a>
                     <form method="POST" class="delete">
                         {% csrf_token %}
@@ -21,11 +21,13 @@
                         <input type="submit" value="X" />
                     </form>
                 </li>
+              </ul>
             {% empty %}
-                <li>You don&rsquo;t seem to have any tails yet, why not
-                    <a href="{% url tail_create %}" class="tail-create">create one now</a>?</li>
+                <div id="empty" class="group"><h2>Sadness...</h2>
+                    <p>You don&rsquo;t seem to have any tails yet, why not
+                    <a href="{% url tail_create %}" class="tail-create">create one now</a>?</p>
+                </div>
             {% endfor %}
-        </ul>
       </section>
     </article>
 {% endblock %}

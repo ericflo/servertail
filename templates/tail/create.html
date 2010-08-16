@@ -1,7 +1,8 @@
 {% extends "iframe_base.html" %}
 
 {% block content %}
-    <form method="POST">
+<h1>Add New Tail</h1>
+    <form method="POST" id="new-tail">
         {% csrf_token %}
         <ul>
             {{ form.as_ul }}

@@ -64,6 +64,12 @@ article .actions #stop-tail {background:url("../images/btn_tail_pause.png") top 
   #tails form.delete input[type="submit"] {background:url("../images/btn_delete_tail.png") top left no-repeat;border:none;width:24px;height:24px;padding:0;text-indent:-9999px;}
   #tails form.delete input[type="submit"]:hover {background-position:bottom left;}
 
+  
+  #tails #empty {width:500px;margin:30px auto 30px auto;}
+  #tails #empty h2 {font-size:30px;margin:0 0 40px 0;background:url("../images/bg_sadness.png") 0 50% no-repeat;height:59px;line-height:59px;padding:0 0 0 70px;margin-left:-70px;}
+  #tails #empty p {color:#717171;font-family: Georgia;font-style:italic;font-size: 18px;background:url("../images/bg_notice.png") 0 50% no-repeat;height:29px;line-height:29px;padding:0 0 0 45px;margin-left:-45px;}
+
+
 /*
  * Tail
  */
@@ -143,3 +149,6 @@ form.delete {display: inline;}
 .cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=../images/colorbox//internet_explorer/borderBottomRight.png, sizingMethod='scale');}
 .cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=../images/colorbox//internet_explorer/borderMiddleLeft.png, sizingMethod='scale');}
 .cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=../images/colorbox//internet_explorer/borderMiddleRight.png, sizingMethod='scale');}
+
+/* Self-clearing class */
+.group:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
