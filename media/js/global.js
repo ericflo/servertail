@@ -12,7 +12,7 @@ $(function() {
     $('a.tail-create').colorbox({
         transition: 'none',
         width: 400,
-        height: 600,
+        height: 520,
         iframe: true
     });
 });
