@@ -23,7 +23,7 @@ var Tail = (function() {
         if(cancel) {
             return;
         }
-        if(textStatus != 'timeout') {
+        if(textStatus != 'timeout' && $('#waiting-help').length) {
             $('#waiting-help').show();
             $(tailElt).hide();
         }
