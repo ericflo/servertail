@@ -4,7 +4,10 @@ $(function() {
     if(tailJumpList.length) {
         var tailJumpListSelect = $('select', tailJumpList);
         tailJumpListSelect.change(function(e) {
-            document.location = tailJumpListSelect.val();
+            var target = tailJumpListSelect.val();
+            if(target && target[0] === '/') {
+                document.location = target;
+            }
         });
     }
     
