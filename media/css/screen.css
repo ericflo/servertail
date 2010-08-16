@@ -53,6 +53,7 @@ article .actions #stop-tail {background:url("../images/btn_tail_pause.png") top 
 /*
  * Tails
  */
+#hider td {font:14px/26px monospace;padding: 0 6px 0 6px;}
 
 #lines {height:300px;display:block;overflow:auto;}
 #lines td {white-space:nowrap;font:14px/26px monospace;padding: 0 6px 0 6px;}

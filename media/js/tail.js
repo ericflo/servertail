@@ -20,6 +20,23 @@ var Tail = (function() {
         setTimeout(function(){ Tail.tail(tailPath, tailElt ); }, waitTime);
     };
     
+    var addSorterRows = function(num) {
+        console.log('Adding ' + num + ' sorting rows.');
+        var hideShowTable = $('<table id="hider"></table>');
+        var row = $('<tr></tr>');
+        for(var i = 0; i < num; ++i) {
+            (function() {
+                var j = i;
+                row.append($('<td><a href="#">hide</a></td>').click(function(e) {
+                    $('.col' + j).globalcss('display', 'none');
+                    return false;
+                }).addClass('hide' + j));
+            })();
+        }
+        hideShowTable.append(row);
+        $(tailElt).before(hideShowTable);
+    };
+    
     var callback = function(data) {
         /* If the server hangs up on a long poll, it won't go to errback, so
            we need for force it to do so. */
@@ -47,11 +64,13 @@ var Tail = (function() {
             var splitLine = data.lines[i].split(delimiter);
             if(numCells === null) {
                 numCells = splitLine.length;
+                addSorterRows(splitLine.length);
             }
             if(splitLine.length === numCells) {
                 lastWasError = false;
                 for(var j = 0; j < splitLine.length; ++j) {
-                    row.append($('<td></td>').text(splitLine[j]));
+                    var td = $('<td></td>').addClass('col' + j);
+                    row.append(td.text(splitLine[j]));
                 }
                 row.appendTo(tailElt);
             }
