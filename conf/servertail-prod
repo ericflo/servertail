@@ -15,6 +15,7 @@ server {
         break;
     }
     location /media {
+        access_log  /var/log/nginx/servertail-prod-media.access.log;
         autoindex on;
         index     index.html;
         break;
