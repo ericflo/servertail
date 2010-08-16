@@ -177,8 +177,11 @@ form.delete {display: inline;}
     #escalator h1 {background:url("../images/escalator_pitch.png") top left no-repeat;width:331px;height:78px;margin:40px 0 0 550px;display:inline-block;}
       #escalator h1 span {display:block;margin-left:-9999px;}
     #escalator p {margin:20px 0 0 550px;line-height:18px;color:#5a5a5a;}
-    #escalator #cta {background:url("../images/btn_try_for_free.png") top left no-repeat;width:155px;height:51px;display:block;margin:20px 0 0 550px;}
+    #escalator #call-to-actions {display:block;margin:20px 0 0 550px;}
+    #escalator #cta {background:url("../images/btn_try_for_free.png") top left no-repeat;width:155px;height:51px;display:inline-block;}
       #escalator #cta span {display:inline-block;margin-left:-9999px;}
+    #escalator #cta-reg {background:url("../images/btn_register_for_more.png") top left no-repeat;width:165px;height:51px;display:inline-block;}
+      #escalator #cta-reg span {display:inline-block;margin-left:-9999px;}
       
   #supplementary {background-color:white;overflow:hidden;border-bottom:4px solid #e2e2e2;margin: 0 0 20px 0;}
     #supplementary ul {width:960px;margin:20px auto;}
