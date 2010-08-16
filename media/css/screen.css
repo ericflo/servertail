@@ -182,6 +182,8 @@ form.delete {display: inline;}
       #escalator #cta span {display:inline-block;margin-left:-9999px;}
     #escalator #cta-reg {background:url("../images/btn_register_for_more.png") top left no-repeat;width:165px;height:51px;display:inline-block;}
       #escalator #cta-reg span {display:inline-block;margin-left:-9999px;}
+    #escalator #cta-my-saved-tails {background:url("../images/btn_my_account.png") top left no-repeat;width:165px;height:51px;display:inline-block;}
+      #escalator #cta-my-saved-tails span {display:inline-block;margin-left:-9999px;}
       
   #supplementary {background-color:white;overflow:hidden;border-bottom:4px solid #e2e2e2;margin: 0 0 20px 0;}
     #supplementary ul {width:960px;margin:20px auto;}
