@@ -1,5 +1,47 @@
 {% extends "base.html" %}
 
+{% block body_id %}home{% endblock %}
+
 {% block content %}
-    <p>THIS IS OUR HOMEPAGE LOLOLOLLYPOP!!</p>
+
+<div id="promotional">
+    
+    <div id="escalator">
+        <div>
+        <h1><span>Tailing your logs has never been easier.</span></h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <a href="#" id="cta"><span>Try it for free!</span></a>
+        </div>
+    </div>
+    
+    <div id="supplementary" class="group">
+        <ul class="group">
+            <li><h2>Quick</h2><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></li>
+            <li><h2>Easy</h2><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></li>
+            <li><h2>Shareable</h2><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p></li>
+        </ul>
+    </div>
+    
+    {% if server_tail %}
+        <h3>Look how cool it is!</h3>
+        <div id="example">
+            <div>
+                <table id="lines"></table>
+            </div>
+        </div>
+    {% endif %}
+    
+</div>
+
+{% endblock %}
+
+{% block extra_body %}
+    {% if server_tail %}
+        <script type="text/javascript" charset="utf-8">
+            Tail.setup('{% url tail_data server_tail.boxed_id %}', '#lines', false);
+            $(window).load(function() {
+                setTimeout(Tail.start, 50);
+            });
+        </script>
+    {% endif %}
 {% endblock %}
