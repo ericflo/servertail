@@ -5,7 +5,7 @@ from tail.models import FrontPage
 
 def index(request):
     try:
-        server_tail = FrontPage.objects.filter('-date')[0].server_tail
+        server_tail = FrontPage.objects.order_by('-date')[0].server_tail
     except IndexError:
         server_tail = None
     context = {
