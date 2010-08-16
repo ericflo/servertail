@@ -138,7 +138,7 @@ var Tail = (function() {
             if(delim) {
                 delimiter = delim;
             }
-            var height = $(window).height() - 260;
+            var height = $(window).height() - 275;
             $(elt).css('height', height);
             $('#waiting-help').css('height', height);
         },
