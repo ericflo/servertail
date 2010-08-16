@@ -7,8 +7,12 @@ var Tail = (function() {
     var delimiter = new RegExp(' ');
     var numCells = null;
     var lastWasError = false;
+    var currentRequest = null;
     
     var errback = function(xhr, textStatus, errorThrown) {
+        if(cancel) {
+            return;
+        }
         $('#waiting-help').show();
         $(tailElt).hide();
         if(waitTime === 0) {
@@ -148,13 +152,16 @@ var Tail = (function() {
         
         stop: function() {
             cancel = true;
+            if(currentRequest) {
+                currentRequest.abort();
+            }
             $('#start-tail').show();
             $('#stop-tail').hide();
         },
         
         tail: function() {
             var queryString = cursor ? {cursor: cursor} : {};
-            $.ajax({
+            currentRequest = $.ajax({
                 url: tailPath,
                 timeout: 10000,
                 data: queryString,
