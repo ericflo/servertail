@@ -63,7 +63,7 @@ ADMIN_MEDIA_PREFIX = '/media/admin/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'bw8+v1vshlnb!11)_&*lcq9uyw3vq)#1pa(-z_y%t))g31%d24'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/tails/'
 LOGIN_URL = '/login/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
