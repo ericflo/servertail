@@ -26,7 +26,7 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
  * Structure
  */
  
-#masthead {height:100px;}
+#masthead {height:50px;}
   #masthead #logo {height:70px;width:300px;display:block;float:left;}
   #masthead #logo h1 a {line-height:70px;display:inline-block;}
   #masthead #utility {float:right;height:70px;margin:0 20px 0 0;}
