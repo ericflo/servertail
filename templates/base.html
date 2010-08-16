@@ -36,14 +36,16 @@
       <li><a href="{% url index %}"><span>Home</span></a></li>        
     {% if user.is_authenticated %}
       <li><a href="{% url tail_tails %}"><span>My Tails</span></a></li>
+      {% if not user.servertail_set.all.count %}
       <li id="quickjump"> 
         <select>
             {% for tail in user.servertail_set.all %}
                 <option{% if server_tail == tail %} selected="selected"{% endif %} value="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</option>
             {% endfor %}
-        </select></li>
+        </select>
+      </li>
       {% block breadcrumbs %}{% endblock %}
-      
+      {% endif %}
     {% endif %}
     </ul>
   </nav>
