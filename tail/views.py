@@ -9,6 +9,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponseForbidden
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.core.exceptions import ImproperlyConfigured
+from django.conf import settings
 
 from django_ext.http import JSONResponse
 from django_ext.crypto import unbox
@@ -23,7 +24,8 @@ import paramiko
 from tail.models import ServerTail
 from tail.forms import ServerTailForm
 
-PUBLIC_KEY_FILE = os.path.expanduser('~/.ssh/id_rsa.pub')
+PUBLIC_KEY_FILE = getattr(settings, 'PUBLIC_KEY_FILE',
+    os.path.expanduser('~/.ssh/id_rsa.pub'))
 try:
     with open(PUBLIC_KEY_FILE, 'r') as f:
         PUBLIC_KEY = f.read().strip()
