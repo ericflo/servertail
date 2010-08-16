@@ -180,13 +180,27 @@ form.delete {display: inline;}
     #escalator #cta {background:url("../images/btn_try_for_free.png") top left no-repeat;width:155px;height:51px;display:block;margin:20px 0 0 550px;}
       #escalator #cta span {display:inline-block;margin-left:-9999px;}
       
-  #supplementary {background-color:white;overflow:hidden;border-bottom:4px solid #e2e2e2;}
+  #supplementary {background-color:white;overflow:hidden;border-bottom:4px solid #e2e2e2;margin: 0 0 20px 0;}
     #supplementary ul {width:960px;margin:20px auto;}
     #supplementary li {width: 290px;float:left;line-height:18px;margin:0 0 30px 20px;color:#5a5a5a;}
       #supplementary h2 {font-size:20px;font-weight:bold;margin:20px 0 10px 0;}
       
-  #example {width:100%;}
+  #example {width:100%;margin:20px 0 0 0;}
     #example div {width:940px;margin:0 auto;}
+    #example h3 {font-size:26px;margin: 20px 0 10px 0;color:#383838;}
+    #example #log {margin: 0 0 40px 0;}
+    
+/*
+ * Footer
+ */
+
+#credits {width:100%;background-color:#2e2e2e;color:white;padding:20px 0;}
+  #credits a {color:#eee;}
+  #credits-content {width:940px;margin:0 auto;height:100px;}
+    #credits #contributors {width:220px;float:left;}
+    #credits #about {width:200px;float:right;}
+      #credits #about .servertail {background:url("../images/servertail_logo_sm.png") top left no-repeat;width:107px;height:24px;display:block;}
+      #credits #about a span {display:inline-block;margin-left:-9999px;}
 
 /* Self-clearing class */
 .group:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
