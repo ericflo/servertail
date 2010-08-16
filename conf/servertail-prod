@@ -6,7 +6,9 @@ server {
     listen 80;
     server_name servertail.com www.servertail.com;
     root /home/servertail/servertail;
-    access_log  /var/log/nginx/servertail-prod.access.log;
+    log_format media '$remote_addr - $remote_user $time_local  '
+                     '$request $status $body_bytes_sent '
+                     '$request_time';
     
     keepalive_timeout 5;
     
@@ -15,6 +17,7 @@ server {
         break;
     }
     location /media {
+        access_log  /var/log/nginx/servertail-prod-media.access.log media;
         autoindex on;
         index     index.html;
         break;
@@ -32,6 +35,7 @@ server {
         break;
     }
     location / {
+        access_log  /var/log/nginx/servertail-prod.access.log combined;
         proxy_set_header Host $http_host;
         proxy_redirect off;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
