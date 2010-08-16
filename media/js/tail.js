@@ -6,7 +6,9 @@ var Tail = (function() {
     var tailElt = null;
     var numCells = null;
     var lastWasError = false;
+    var inARow = 0;
     var currentRequest = null;
+    var shouldAddShrinkRows = true;
     
     var smartSplit = function(str) {
         var splitStr = str.match(/\S+|"[^"]+"/g);
@@ -96,12 +98,22 @@ var Tail = (function() {
         for(var i = 0; i < data.lines.length; ++i) {
             var row = $('<tr></tr>');
             var splitLine = smartSplit(data.lines[i]);
+            /* Heuristic to correct if the first few lines are different from
+               the rest */
+            if(inARow > 20) {
+                numCells = splitLine.length;;
+                inARow = 0;
+                lastWasError = false;
+            }
             if(numCells === null) {
                 numCells = splitLine.length;
-                addShrinkRows(splitLine.length);
+                if(shouldAddShrinkRows) {
+                    addShrinkRows(splitLine.length);
+                }
             }
             if(splitLine.length === numCells) {
                 lastWasError = false;
+                inARow = 0;
                 for(var j = 0; j < splitLine.length; ++j) {
                     var td = $('<td></td>').addClass('col' + j);
                     row.append(td.text(splitLine[j]));
@@ -119,6 +131,7 @@ var Tail = (function() {
                     cell = cell.html($('<pre></pre>').text(data.lines[i]));
                     row.addClass('error').append(cell).appendTo(tailElt);
                 }
+                inARow += 1;
             }
         }
         
@@ -142,9 +155,10 @@ var Tail = (function() {
     };
     
     return {
-        setup: function(path, elt) {
+        setup: function(path, elt, sasr) {
             tailPath = path;
             tailElt = elt;
+            shouldAddShrinkRows = (sasr === undefined ? true : sasr);
             var height = $(window).height() - 275;
             $(elt).css('height', height);
             $('#waiting-help').css('height', height);

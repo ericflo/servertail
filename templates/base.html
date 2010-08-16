@@ -41,7 +41,7 @@
         <select>
             <option>Jump to a tail...</option>
             {% for tail in user.servertail_set.all %}
-                <option{% if server_tail == tail %} selected="selected"{% endif %} value="{{ tail.get_absolute_url }}">{{ tail.hostname }} &mdash; {{ tail.path }}</option>
+                <option{% if not index %}{% if server_tail == tail %} selected="selected"{% endif %}{% endif %} value="{{ tail.get_absolute_url }}">{{ tail.hostname }} &ndash; {{ tail.path }}</option>
             {% endfor %}
         </select>
       </li>

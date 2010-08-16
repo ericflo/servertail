@@ -1,4 +1,5 @@
 import datetime
+import os
 
 from django.db import models
 from django.core.urlresolvers import reverse
@@ -23,6 +24,11 @@ class ServerTail(models.Model):
     @cached_property
     def boxed_id(self):
         return box(self.id)
+    
+    @cached_property
+    def filename(self):
+        print os.path.split(self.path.split()[0])[1]
+        return os.path.split(self.path.split()[0])[1]
     
     def __unicode__(self):
         return self.hostname

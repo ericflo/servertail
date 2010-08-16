@@ -9,8 +9,9 @@ class ServerTailForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(render_value=False),
         required=False,
+        label='Password (optional)',
     )
-    path = forms.CharField(max_length=255)
+    path = forms.CharField(max_length=255, label='Path to log file')
     
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
