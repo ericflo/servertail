@@ -20,21 +20,32 @@ var Tail = (function() {
         setTimeout(function(){ Tail.tail(tailPath, tailElt ); }, waitTime);
     };
     
-    var addSorterRows = function(num) {
-        console.log('Adding ' + num + ' sorting rows.');
-        var hideShowTable = $('<table id="hider"></table>');
+    var addShrinkRows = function(num) {
+        var shrinkTable = $('<table id="shrink"></table>');
         var row = $('<tr></tr>');
         for(var i = 0; i < num; ++i) {
             (function() {
                 var j = i;
-                row.append($('<td><a href="#">hide</a></td>').click(function(e) {
-                    $('.col' + j).globalcss('display', 'none');
+                var td = $('<td><a href="#">&#x25C0;</a></td>');
+                var grow = function() {
+                    $('.col' + j).globalcss('max-width', 'inherit');
+                    td.css('width', $($(tailElt + ' tr:last td')[j]).width());
+                    $('a', td).html('&#x25C0;');
+                    td.click(shrink);
                     return false;
-                }).addClass('hide' + j));
+                };
+                var shrink = function() {
+                    $('.col' + j).globalcss('max-width', '12px');
+                    td.css('width', '12px');
+                    $('a', td).html('&#x25BA;');
+                    td.click(grow)
+                    return false;
+                };
+                row.append(td.click(shrink).addClass('shrink' + j));
             })();
         }
-        hideShowTable.append(row);
-        $(tailElt).before(hideShowTable);
+        shrinkTable.append(row);
+        $(tailElt).before($('<div></div>').append(shrinkTable));
     };
     
     var callback = function(data) {
@@ -64,7 +75,7 @@ var Tail = (function() {
             var splitLine = data.lines[i].split(delimiter);
             if(numCells === null) {
                 numCells = splitLine.length;
-                addSorterRows(splitLine.length);
+                addShrinkRows(splitLine.length);
             }
             if(splitLine.length === numCells) {
                 lastWasError = false;
@@ -94,6 +105,14 @@ var Tail = (function() {
             }
             $(tailElt).scrollTop(9999);
         }
+        
+        var latest = $(tailElt + ' tr:last td');
+        for(var i = 0; i < latest.length; ++i) {
+            var width = $(latest[i]).width();
+            $('.shrink' + i).css('width', width).css('max-width', width);
+        }
+        $('#shrink').parent().css('width', $(tailElt + ' tr:last').width());
+        
         if(!cancel) {
             Tail.tail(tailPath, tailElt);
         }

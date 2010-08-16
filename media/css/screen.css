@@ -34,10 +34,11 @@ body {background:url("../images/bg_main.png") top left repeat-x #eee;margin: 0;p
   
 #breadcrumbs {margin:20px;height:44px;border:1px solid #cfcfcf;-webkit-box-shadow:0 0 3px #cecece;background-color:#fafafa;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;overflow:hidden;}
   #breadcrumbs a { text-decoration:none;color:#666;}
-  #breadcrumbs ul {margin:0 20px;display:block;}
+  #breadcrumbs ul {margin:0 20px;display:block;overflow:auto;}
     #breadcrumbs li {margin:0 20px 0 0;float:left;}
     #breadcrumbs li {background:url("../images/bg_breadcrumb_arrow.png") center right no-repeat;height:44px;padding:0 40px 0 0;line-height:44px;}
     #breadcrumbs li:last-child {background:none;font-weight:bold;}
+  #breadcrumbs #quickjump select {width:200px;}
 
 
 article {margin:0 20px 40px 20px;-webkit-box-shadow:0 0 3px #cecece;background-color:white;border:1px solid #cfcfcf;-webkit-border-radius:6px;-moz-border-radius:6px;border-radius:6px;}
@@ -53,11 +54,26 @@ article .actions #stop-tail {background:url("../images/btn_tail_pause.png") top 
 /*
  * Tails
  */
-#hider td {font:14px/26px monospace;padding: 0 6px 0 6px;}
+ 
+#tails ul {width:100%;}
+#tails li {width:100%;font-size:16px;line-height:60px;height:60px;}
+#tails li:nth-child(even) {background-color:#e9e9e9;}
+#tails li:hover {background-color:#d8faff;}
+  #tails li a {text-decoration:none; color:#555;margin:0 0 0 10px;}
+  #tails form {float:right;margin:0 10px 0 0;}
+  #tails form.delete input[type="submit"] {background:url("../images/btn_delete_tail.png") top left no-repeat;border:none;width:24px;height:24px;padding:0;text-indent:-9999px;}
+  #tails form.delete input[type="submit"]:hover {background-position:bottom left;}
+
+/*
+ * Tail
+ */
+
+#shrink td {font:14px/26px monospace;padding: 0 6px 0 6px;overflow: hidden;}
+#shrink a {text-decoration: none; color: #ddd;}
 
 #lines {height:300px;display:block;overflow:auto;}
-#lines td {white-space:nowrap;font:14px/26px monospace;padding: 0 6px 0 6px;}
-#lines tr:nth-child(odd) {background-color:#e9e9e9;}
+#lines td {white-space:nowrap;font:14px/26px monospace;padding: 0 6px 0 6px;overflow: hidden;}
+#lines tr:nth-child(even) {background-color:#e9e9e9;}
 #lines tr.error {background-color:#FF9999;}
 #lines tr:hover {background-color:#d8faff;}
 
