@@ -7,8 +7,12 @@ var Tail = (function() {
     var delimiter = new RegExp(' ');
     var numCells = null;
     var lastWasError = false;
+    var currentRequest = null;
     
     var errback = function(xhr, textStatus, errorThrown) {
+        if(cancel) {
+            return;
+        }
         $('#waiting-help').show();
         $(tailElt).hide();
         if(waitTime === 0) {
@@ -29,6 +33,9 @@ var Tail = (function() {
                 var td = $('<td><a href="#">&#x25C0;</a></td>');
                 var grow = function() {
                     $('.col' + j).globalcss('max-width', 'inherit');
+                    $('.col' + j).globalcss('opacity', '1');
+                    $('.col' + j).globalcss('-moz-opacity', '1');
+                    $('.col' + j).globalcss('-webkit-opacity', '1');
                     td.css('width', $($(tailElt + ' tr:last td')[j]).width());
                     $('a', td).html('&#x25C0;');
                     td.click(shrink);
@@ -36,6 +43,9 @@ var Tail = (function() {
                 };
                 var shrink = function() {
                     $('.col' + j).globalcss('max-width', '12px');
+                    $('.col' + j).globalcss('opacity', '0.3');
+                    $('.col' + j).globalcss('-moz-opacity', '0.3');
+                    $('.col' + j).globalcss('-webkit-opacity', '0.3');
                     td.css('width', '12px');
                     $('a', td).html('&#x25BA;');
                     td.click(grow)
@@ -45,7 +55,10 @@ var Tail = (function() {
             })();
         }
         shrinkTable.append(row);
-        $(tailElt).before($('<div></div>').append(shrinkTable));
+        $(tailElt).before($('<div id="shrink-container"></div>').append(shrinkTable));
+        $(tailElt).scroll(function(e) {
+            shrinkTable.css('margin-left', '-' + $(tailElt).scrollLeft() + 'px');
+        });
     };
     
     var callback = function(data) {
@@ -111,7 +124,7 @@ var Tail = (function() {
             var width = $(latest[i]).width();
             $('.shrink' + i).css('width', width).css('max-width', width);
         }
-        $('#shrink').parent().css('width', $(tailElt + ' tr:last').width());
+        $('#shrink').css('width', $(tailElt + ' tr:last').width());
         
         if(!cancel) {
             Tail.tail(tailPath, tailElt);
@@ -125,7 +138,7 @@ var Tail = (function() {
             if(delim) {
                 delimiter = delim;
             }
-            var height = $(window).height() - 240;
+            var height = $(window).height() - 275;
             $(elt).css('height', height);
             $('#waiting-help').css('height', height);
         },
@@ -139,13 +152,16 @@ var Tail = (function() {
         
         stop: function() {
             cancel = true;
+            if(currentRequest) {
+                currentRequest.abort();
+            }
             $('#start-tail').show();
             $('#stop-tail').hide();
         },
         
         tail: function() {
             var queryString = cursor ? {cursor: cursor} : {};
-            $.ajax({
+            currentRequest = $.ajax({
                 url: tailPath,
                 timeout: 10000,
                 data: queryString,
